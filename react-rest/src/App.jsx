@@ -7,6 +7,7 @@ import Register from './components/Register'
 import Navbar from './components/Navbar'
 import Auth from './components/Auth'
 import Private from './components/Private'
+import Public from './components/Public'
 
 
 function App() {
@@ -14,9 +15,10 @@ function App() {
   return (
    <>
    <Navbar />
+   This the Home
      <Routes>
-      <Route path='/login' element={<Login/>} />
-      <Route path='/register' element={<Register/>} />
+      <Route path='/login' element={<Public><Login/> </Public>} />
+      <Route path='/register' element={<Public><Register/> </Public>} />
       <Route path='/private' element={<Auth><Private/></Auth>} />
 
 

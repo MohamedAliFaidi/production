@@ -25,7 +25,6 @@ function Auth({ children }) {
   useEffect(() => {
     checkAuth()
       .then((res) => {
-        console.log(res);
         setIsAuth(res);
         setLoading(false);
       })
@@ -39,6 +38,9 @@ function Auth({ children }) {
     // You might want to render a loading state here
     return null;
   } else return <>{isAuth ? children : <Navigate to="/login" />}</>;
+
+
+  
 }
 
 export default Auth;
