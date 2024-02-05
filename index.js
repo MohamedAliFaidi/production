@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const routes = require("./routes/tank.route")
 const authRoutes = require("./routes/auth.route")
+const privateRoute = require("./routes/private.route")
 const cors = require("cors")
 app.use(express.json());
 
@@ -30,8 +31,11 @@ mongoose
 
 
 
+
+
   app.use(routes);
   app.use(authRoutes);
+  app.use(privateRoute)
 
 
   app.listen(3000,()=>{

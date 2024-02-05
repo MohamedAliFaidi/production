@@ -13,7 +13,6 @@ const newTank = async (req, res) => {
   try {
     console.log(req.body);
     const newTank = await Tank.create(req.body);
-
     res.status(201).json({ data: newTank });
   } catch (error) {
     res.status(500).json({ message: "server error" });
