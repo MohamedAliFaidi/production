@@ -43,9 +43,12 @@ const login = async(req,res)=>{
               res.status(401).json({ message: "wrong password" });
           }
             else{
-                const exp = Date.now() + 1000*45  //1000*60*60 ;
+                const exp = Date.now() +   1000*60*60 ;
                 const token = jwt.sign({ id:isUser._id, exp }, process.env.SECRET_KEY);
-                res.cookie("Authorization",token).status(200).json({ token: token });
+                res.cookie("Authorization",token).status(200).json({ user:{
+                  email :isUser.email,
+                  _id : isUser._id
+                }  });
             }
         }
     } catch (error) {
@@ -73,4 +76,14 @@ if(decoded && decoded.exp < Date.now())
   }
 
 }
-module.exports = { register , login ,check };
+
+
+
+const logout = async (req,res)=>{
+
+  res.clearCookie("Authorization")
+  res.status(200).json({message : "logged out"})
+
+
+}
+module.exports = { register , login ,check,logout };
