@@ -5,4 +5,23 @@ export const validateEmail = (email) => {
     }
     return false;
   };
-  
+
+
+const PASSWORD_MIN_LENGTH = 8;
+const PASSWORD_MAX_LENGTH = 30;
+const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
+export const validatePasword = (password) => {
+  // TODO add more password validation
+  console.log(PASSWORD_REGEX.test(password))
+  if (!PASSWORD_REGEX.test(password)) {
+    return false;
+  } else if (
+    password.length < PASSWORD_MIN_LENGTH ||
+    password.length > PASSWORD_MAX_LENGTH
+  ) {
+    return false;
+  }
+  return true;
+};
+

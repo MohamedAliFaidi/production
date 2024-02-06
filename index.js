@@ -6,6 +6,7 @@ const privateRoute = require("./routes/private.route")
 const adminRoute = require('./routes/admin.route')
 const cors = require("cors")
 app.use(express.json());
+console.log("hello from server")
 
 const cookieParser = require('cookie-parser')
 

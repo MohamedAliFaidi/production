@@ -12,8 +12,10 @@ async function checkAuth(path) {
       }
     );
 
+    console.log(res)
     return true;
   } catch (error) {
+    console.log(error)
     return false;
   }
 }
@@ -62,6 +64,7 @@ export function Auth({ children }) {
   useEffect(() => {
     checkAuth("check")
       .then((res) => {
+        console.log(res)
         setIsAuth(res);
         setLoading(false);
       })

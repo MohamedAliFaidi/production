@@ -61,13 +61,8 @@ const login = async(req,res)=>{
 
 const check = async function (req,res) {
   try {
-    const token = req.headers.cookie.split("=")[1]
-const decoded = jwt.verify(token ,process.env.SECRET_KEY)
-
-if(decoded && decoded.exp < Date.now())
-  res.status(400).json({isAuth :false})
-
-     else
+ 
+  
     res.status(200).json({isAuth : true})
   } catch (error) {
     res.status(500).json({error : error})

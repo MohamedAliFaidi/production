@@ -8,7 +8,8 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 function Body() {
   return (
-    <div>   <Routes>
+    <div> 
+   <Routes>
     <Route
       path="/login"
       element={

@@ -53,11 +53,15 @@ function checkAuth (req,res,next) {
 
 
   try {
-     const {token }= req.body 
-     console.log(token) 
-     res.status(200).json({isAuth : true})
+    const token = req.headers.cookie.split("=")[1]
+    const decoded = jwt.verify(token ,process.env.SECRET_KEY)
+    
+    if(decoded && decoded.exp < Date.now())
+     {
+     return  res.status(400).json({isAuth :false})}
+    
    } catch (error) {
-     res.status(500).json({error : error})
+     return  res.status(500).json({error : error})
  
    }
  

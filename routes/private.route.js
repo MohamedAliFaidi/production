@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 
-router.get("/private" , require("../middleware").checkAuth , require("../contollers/private.controller") )
+router.get("/private" , require("../middleware").checkAuth  )
 
 
 

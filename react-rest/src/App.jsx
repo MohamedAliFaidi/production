@@ -7,6 +7,7 @@ import Body from "./components/Body";
 
 
 function App() {
+  console.log("hello from react")
   return (
     <>
       <Navbar />
