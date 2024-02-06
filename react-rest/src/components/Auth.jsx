@@ -12,7 +12,7 @@ async function checkAuth(path) {
       }
     );
 
-    return res.data.isAuth;
+    return true;
   } catch (error) {
     return false;
   }
@@ -26,21 +26,30 @@ export function AdminAuth ({ children }) {
   useEffect(() => {
     checkAuth("isadmin")
       .then((res) => {
-        console.log(res)
+        console.log(res ,"res")
+        if(res == true )
         setIsAdmin(true);
         setLoading(false);
+        console.log(isAdmin)
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err,"here")
         setIsAdmin(false);
         setLoading(false);
       });
 
-      console.log(isAdmin)
+      console.log(isAdmin ,"here")
   }, []);
 
   if (loading) { // You might want to render a loading state here
     return null;
-  } else return <>{!isAdmin ? children : <Navigate to="/home" />}</>;
+
+
+  } 
+  
+  else{
+    console.log(isAdmin ,"ins cope")
+    return <>{isAdmin  == null   || isAdmin  == false ?   <Navigate to="/home" /> : children}</>;}
 
 
 } 
