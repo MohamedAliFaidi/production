@@ -44,10 +44,11 @@ const login = async(req,res)=>{
           }
             else{
                 const exp = Date.now() +   1000*60*60 ;
-                const token = jwt.sign({ id:isUser._id, exp }, process.env.SECRET_KEY);
+                const token = jwt.sign({ id:isUser._id, exp , role: isUser.role }, process.env.SECRET_KEY);
                 res.cookie("Authorization",token).status(200).json({ user:{
                   email :isUser.email,
-                  _id : isUser._id
+                  _id : isUser._id,
+                  role: isUser.role
                 }  });
             }
         }
@@ -60,10 +61,8 @@ const login = async(req,res)=>{
 
 const check = async function (req,res) {
   try {
-    const {token }= req.body 
-    console.log(token)
+    const token = req.headers.cookie.split("=")[1]
 const decoded = jwt.verify(token ,process.env.SECRET_KEY)
-console.log(decoded)
 
 if(decoded && decoded.exp < Date.now())
   res.status(400).json({isAuth :false})

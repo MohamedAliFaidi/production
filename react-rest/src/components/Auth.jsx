@@ -2,11 +2,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import { Navigate } from "react-router-dom";
-async function checkAuth() {
+async function checkAuth(path) {
   try {
-    const res = await axios.post(
-      "http://localhost:3000/check",
-      { token: document.cookie.split("=")[1] },
+    const res = await axios.get(
+      "http://localhost:3000/"+path,
+     
       {
         withCredentials: true,
       }
@@ -18,12 +18,40 @@ async function checkAuth() {
   }
 }
 
-function Auth({ children }) {
+
+export function AdminAuth ({ children }) {
+   const [isAdmin, setIsAdmin] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkAuth("isadmin")
+      .then((res) => {
+        console.log(res)
+        setIsAdmin(true);
+        setLoading(false);
+      })
+      .catch(() => {
+        setIsAdmin(false);
+        setLoading(false);
+      });
+
+      console.log(isAdmin)
+  }, []);
+
+  if (loading) { // You might want to render a loading state here
+    return null;
+  } else return <>{!isAdmin ? children : <Navigate to="/home" />}</>;
+
+
+} 
+
+
+export function Auth({ children }) {
   const [isAuth, setIsAuth] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth()
+    checkAuth("check")
       .then((res) => {
         setIsAuth(res);
         setLoading(false);
@@ -43,4 +71,4 @@ function Auth({ children }) {
   
 }
 
-export default Auth;
+
