@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { validateEmail, validatePasword } from "../utils/validator"
-import { register } from "../service/auth.service"
+import { validateEmail, validatePasword } from "../../utils/validator"
+import { register } from "../../service/auth.service"
 function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")

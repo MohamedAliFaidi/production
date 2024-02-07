@@ -1,12 +1,12 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useUser } from "../stores/userStore";
+import { axiosClient } from "./auth.service";
 
 import { Navigate } from "react-router-dom";
 async function checkAuth(path) {
   try {
-    const res = await axios.get(
-      "http://localhost:3000/" + path,
+    const res = await axiosClient.get(
+      "/" + path,
 
       {
         withCredentials: true,
@@ -30,8 +30,7 @@ export function AdminAuth({ children }) {
       .then((res) => {
         console.log(res, "res");
         if (res == true) setIsAdmin(true);
-        if(res == false)
-       setUser({})
+     
         setLoading(false);
         console.log(isAdmin);
       })

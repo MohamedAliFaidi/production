@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
-import { useUser } from "../stores/userStore"
+import { useUser } from "../../stores/userStore"
 
-import { logout } from "../service/auth.service"
+import { logout } from "../../service/auth.service"
 
 function Navbar() {
   const [user, setUser] = useUser((state) => [state.user, state.setUser])

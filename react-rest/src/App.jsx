@@ -1,15 +1,16 @@
 import "./App.css";
 
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layouts/Navbar";
 
-import Body from "./components/Body";
+import Body from "./components/layouts/Body";
 import { useUser } from "./stores/userStore";
 import { getSession } from "./service/auth.service";
 import { useEffect } from "react";
 
 
 function App() {
+  
   const [user,setUser] = useUser((state) => [state.user ,state.setUser])
   useEffect(()=>{
     getSession().then(res=>{
