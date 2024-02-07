@@ -7,7 +7,7 @@ const adminRoute = require('./routes/admin.route')
 const uploadRoute = require("./routes/upload.route")
 
 const cors = require("cors")
-app.use(express.json());
+app.use(express.json({ limit: '35mb'}));
 
 const cookieParser = require('cookie-parser')
 

@@ -20,7 +20,9 @@ function Profile() {
   return (
     <div><input onChange={handleFileInputChange} type="file"/>
      <button onClick={async ()=>{
-      await axiosClient.post("http://localhost:3000/upload",data).then(res=>console.log(res)).catch(err=>{
+      await axiosClient.post("http://localhost:3000/upload",{data} ,{
+        
+      }).then(res=>console.log(res)).catch(err=>{
         console.log(err)
       })
      }} > upload</button>
