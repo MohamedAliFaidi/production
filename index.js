@@ -4,12 +4,20 @@ const routes = require("./routes/tank.route")
 const authRoutes = require("./routes/auth.route")
 const privateRoute = require("./routes/private.route")
 const adminRoute = require('./routes/admin.route')
+const uploadRoute = require("./routes/upload.route")
+
 const cors = require("cors")
 app.use(express.json());
 
 const cookieParser = require('cookie-parser')
 
 app.use(cookieParser())
+
+app.use(  express.urlencoded({
+  extended: true,
+  limit: '35mb',
+  parameterLimit: 50000,
+}),)
 
 
 app.use(cors({
@@ -37,7 +45,9 @@ mongoose
   app.use(routes);
   app.use(authRoutes);
   app.use(privateRoute)
-  app.use(adminRoute)
+  app.use(adminRoute);
+  app.use(uploadRoute)
+
 
 
   app.listen(3000,()=>{

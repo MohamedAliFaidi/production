@@ -1,10 +1,10 @@
 import { Auth, AdminAuth,Public } from "../../service/Auth";
-import Private from "../private/Private";
 import Admin from "../admin/Admin";
 
 import { Routes, Route } from "react-router-dom";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import Profile from "../user/Profile";
 function Body() {
   return (
     <div>
@@ -34,10 +34,10 @@ function Body() {
           }
         />
         <Route
-          path="/private"
+          path="/profile"
           element={
             <Auth>
-              <Private />
+              <Profile />
             </Auth>
           }
         />

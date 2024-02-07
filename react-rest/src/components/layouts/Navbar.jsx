@@ -16,7 +16,7 @@ function Navbar() {
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       {!user._id && <Link to="/login">Login</Link>}
       {!user._id && <Link to="/register">Regiter</Link>}
-      {user._id && <Link to="/private">Private</Link>}
+      {user._id && <Link to="/profile">Profile</Link>}
      <Link to="/">Home</Link>
 
       {user._id && <button onClick={() => {

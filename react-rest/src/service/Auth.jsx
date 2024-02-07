@@ -14,7 +14,6 @@ async function checkAuth(path) {
     );
     return true;
   } catch (error) {
-    console.log(error);
     return false;
   }
 }
@@ -70,7 +69,6 @@ export function Auth({ children }) {
     checkAuth("check")
       .then((res) => {
         setIsAuth(res);
-        console.log(res)
         if(res == false)
         setUser({})
         setLoading(false);

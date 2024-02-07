@@ -37,7 +37,7 @@ const login = async (req, res) => {
       if (!match) {
         res.status(401).json({ message: "wrong password" });
       } else {
-        const exp = Date.now() + 1000 *  10 //60 * 60;
+        const exp = Date.now() + 1000 * 60 * 60;
         const token = jwt.sign(
           { id: isUser._id, exp, role: isUser.role },
           process.env.SECRET_KEY
