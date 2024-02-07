@@ -1,29 +1,19 @@
-import axios from "axios";
 import { useState } from "react";
 import { useUser } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
+import { login } from "../service/auth.service";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [user, setUser] = useUser((state) => [state.user, state.setUser]);
+  const [setUser] = useUser((state) => [ state.setUser]);
 
   const handleLogin = async () => {
-    const res = await axios.post(
-      "http://localhost:3000/login",
-      { email: email, password: password },
-      {
-        withCredentials: true,
-      }
-    );
-    console.log(res);
-
+    const res = await login(email,password)
     if (res.data.user) {
       setUser(res.data.user);
       navigate("/private");
     }
-
-    console.log(user);
   };
 
   return (

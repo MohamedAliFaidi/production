@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { validateEmail, validatePasword } from "../utils/validator"
+import { register } from "../service/auth.service"
 function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -55,8 +55,8 @@ function Register() {
 
 
     const handleRegister = async () => {
-        const data = await axios.post("http://localhost:3000/register", { email: email, password: password })
-        console.log(data)
+        const data = await register(email,password)
+       
 
     }
 

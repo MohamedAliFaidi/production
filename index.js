@@ -6,7 +6,6 @@ const privateRoute = require("./routes/private.route")
 const adminRoute = require('./routes/admin.route')
 const cors = require("cors")
 app.use(express.json());
-console.log("hello from server")
 
 const cookieParser = require('cookie-parser')
 
@@ -42,5 +41,5 @@ mongoose
 
 
   app.listen(3000,()=>{
-    console.log("listening on port 300")
+    console.log("listening on port 3000")
 })

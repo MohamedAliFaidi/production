@@ -9,7 +9,7 @@ function Admin() {
 
   return (
     <div>
-      <button onClick={testAdminRoute}></button>
+      <button onClick={testAdminRoute}>admin action</button>
     </div>
   );
 }

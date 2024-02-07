@@ -17,16 +17,12 @@ const jwt = require("jsonwebtoken")
 
    if(decoded  && decoded.exp < Date.now)
    {
+    res.clearCookie("Authorization")
+
     return res.status(400).json({message :"session expired please login"})
-
-  
    }
-
    else if (decoded &&  decoded['role'] !="admin")
    {
-
-
-
    return  res.status(401).json({message :"action reserved to admin only"})
 
   }
@@ -58,6 +54,8 @@ function checkAuth (req,res,next) {
     
     if(decoded && decoded.exp < Date.now())
      {
+      res.clearCookie("Authorization")
+
      return  res.status(400).json({isAuth :false})}
     
    } catch (error) {
