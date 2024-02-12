@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { validateEmail, validatePasword } from "../../utils/validator"
 import { register } from "../../service/auth.service"
+
 function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -61,16 +62,17 @@ function Register() {
     }
 
     return (
-        <div>
-            <div>
-                Regiter</div>
+        <div className="div" >
+
+        <div className="container" >
+          
             <input onChange={verifyAndSetEmail} type="email" placeholder="email" />
             {emailErrorMsg}
             <input onChange={verifyAndSetPassword} type="password" placeholder="password" />
                {passwordErrorMsg}
             <button onClick={handleRegister} >Join</button>
 
-        </div>
+        </div></div>
     )
 }
 

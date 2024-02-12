@@ -1,76 +1,40 @@
+const jwt = require("jsonwebtoken");
 
-const jwt = require("jsonwebtoken")
-
- async function checkAdmin (req,res,next) {
-
-
- try {
-
-  if(!req.headers.cookie) {
-    return  res.status(401).json({message :"unauthorized access detected"})
-
-  }
-    
-    const token = req.headers.cookie.split("=")[1]
-    const decoded = jwt.verify(token ,process.env.SECRET_KEY)
-    
-
-   if(decoded  && decoded.exp < Date.now)
-   {
-    res.clearCookie("Authorization")
-
-    return res.status(400).json({message :"session expired please login"})
-   }
-   else if (decoded &&  decoded['role'] !="admin")
-   {
-   return  res.status(401).json({message :"action reserved to admin only"})
-
-  }
-
-
-
-
-
-   
+async function checkAdmin(req, res, next) {
+  try {
+    if (!req.headers.cookie) {
+      return res.status(401).json({ message: "unauthorized access detected" });
+    }
+    const token = req.headers.cookie.split("=")[1];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (decoded && decoded.exp < Date.now) {
+      res.clearCookie("Authorization");
+      return res.status(400).json({ message: "session expired please login" });
+    } else if (decoded && decoded["role"] != "admin") {
+      return res.status(401).json({ message: "action reserved to admin only" });
+    }
   } catch (error) {
-    console.log(error ,"here")
-    res.status(500).json({error : error})
-    
+    console.log(error, "here");
+    res.status(500).json({ error: error });
   }
-  next()
-
-
-
-
+  next();
 }
 
-
-function checkAuth (req,res,next) {
-
-
+function checkAuth(req, res, next) {
   try {
-    const token = req.headers.cookie.split("=")[1]
-    const decoded = jwt.verify(token ,process.env.SECRET_KEY)
-    
-    if(decoded && decoded.exp < Date.now())
-     {
-      res.clearCookie("Authorization")
+    const token = req.headers.cookie.split("=")[1];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (decoded && decoded.exp < Date.now()) {
+      res.clearCookie("Authorization");
+      return res.status(400).json({ isAuth: false });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error });
+  }
+  next();
+}
 
-     return  res.status(400).json({isAuth :false})}
-    
-   } catch (error) {
-     return  res.status(500).json({error : error})
- 
-   }
- 
- 
- next()
- 
- 
- }
-
-
-
- module.exports = {
-  checkAdmin,checkAuth
- }
+module.exports = {
+  checkAdmin,
+  checkAuth,
+};

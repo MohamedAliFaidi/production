@@ -13,15 +13,13 @@ function App() {
   
   const [user,setUser] = useUser((state) => [state.user ,state.setUser])
   useEffect(()=>{
-    getSession().then(res=>{
-        
+    getSession().then(res=>{ 
     }).catch(err=>setUser({}))
   },[])
 
   return (
     <>
       <Navbar />
-      this is the home page
          <Body/>   
     </>
   );

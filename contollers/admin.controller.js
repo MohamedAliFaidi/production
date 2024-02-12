@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken")
 
 const testAdmin = async (req, res) => {
   try {
-
     res.status(200).json({
       message: " you reached the backen admin route ",
     });
