@@ -9,15 +9,15 @@ import { getSession } from "./service/auth.service";
 import { useEffect } from "react";
 import './App.css'
 import Footer from "./components/layouts/Footer";
-import toast from "react-hot-toast";
 
 
 function App() {
   
   const [user,setUser] = useUser((state) => [state.user ,state.setUser])
   useEffect(()=>{
+   if(document.cookie.split("=").includes('Authorization')){
     getSession().then(res=>{ 
-    }).catch(err=>setUser({}))
+    }).catch(err=>setUser({}))}
   },[])
 
   return ( 
@@ -26,19 +26,6 @@ function App() {
     <Navbar />
     <Body/>
     <Footer/>
-    <button onClick={()=>{
-      toast.success("ok")
-    }}>success</button>
-
-      <button onClick={()=>{
-        toast.error("not ok")
-      }}>error</button>
-
-<button onClick={()=>{
-        toast('Good job!' , {
-          icon:"<3"
-        })
-      }}>promise</button>
     </div>
   );
 }

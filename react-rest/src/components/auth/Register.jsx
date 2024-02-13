@@ -20,7 +20,6 @@ function Register() {
 
 
     const verifyAndSetEmail = (e) => {
-        console.log(e.target.value)
         if (!validateEmail(e.target.value)) {
             setEmailError(true);
         } else {

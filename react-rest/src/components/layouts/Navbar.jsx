@@ -144,15 +144,16 @@ export default function StickyNavbar() {
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
+                onClick={() => {
+                  logout();
+                  setUser({});
+                }}
               >
                 <span>
                   {" "}
                   <a
                     className="a"
-                    onClick={() => {
-                      logout();
-                      setUser({});
-                    }}
+                  
                   ></a>
                 </span>{" "}
                 Logout

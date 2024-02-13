@@ -13,7 +13,6 @@ const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
 export const validatePasword = (password) => {
   // TODO add more password validation
-  console.log(PASSWORD_REGEX.test(password))
   if (!PASSWORD_REGEX.test(password)) {
     return false;
   } else if (
