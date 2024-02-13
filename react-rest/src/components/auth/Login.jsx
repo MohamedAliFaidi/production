@@ -19,7 +19,7 @@ function Login() {
     const res = await login(email,password)
     if (res.data.user) {
       setUser(res.data.user);
-      navigate("/private");
+      navigate("/profile");
     }
   };
 
