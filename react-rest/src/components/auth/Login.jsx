@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useUser } from "../../stores/userStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../service/auth.service";
+import {
+  Card,
+  Input,
+  Checkbox,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,29 +24,96 @@ function Login() {
   };
 
   return (
-    <div className="div">
+    <div style={{display:"flex",justifyContent:"center",marginTop:"20px"}}>
+     <Card color="transparent" shadow={false}>
+      <Typography variant="h4" color="blue-gray">
+        Login
+      </Typography>
+      <Typography color="gray" className="mt-1 font-normal">
+        Welcome back! Enter your details to login.
+      </Typography>
+      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <div className="mb-1 flex flex-col gap-6">
+          {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
+            Your Name
+          </Typography>
+          <Input
+            size="lg"
+            placeholder="name@mail.com"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          /> */}
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+            Your Email
+          </Typography>
+          <Input
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+            size="lg"
+            placeholder="name@mail.com"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+            Password
+          </Typography>
+          <Input
+           onChange={(e) => {
+              setPassword(e.target.value);
+            }} 
+            type="password"
+            size="lg"
+            placeholder="********"
+            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            labelProps={{
+              className: "before:content-none after:content-none",
+            }}
+          />
+        </div>
+        {/* <Checkbox
+          label={
+            <Typography
+              variant="small"
+              color="gray"
+              className="flex items-center font-normal"
+            >
+              I agree the
+              <a
+                href="#"
+                className="font-medium transition-colors hover:text-gray-900"
+              >
+                &nbsp;Terms and Conditions
+              </a>
+            </Typography>
+          }
+          containerProps={{ className: "-ml-2.5" }}
+        /> */}
+        <Button onClick={handleLogin} className="mt-6" fullWidth>
+          Login
+        </Button>
+        <Typography color="gray" className="mt-4 text-center font-normal">
+          dont have an account yet?{" "}
+          <Link to="/register" className="font-medium text-gray-900">
+            Register
+          </Link>
+        </Typography>
+      </form>
+    </Card>
+    </div>
 
  
 
-    <div className="w-full h-screen flex items-center justify-center">
-    <div className="bg-gray-200 w-96 h-auto rounded-lg pt-8 pb-8 px-8 flex flex-col items-center">
-        <label className="font-light text-4xl mb-4"><span className="font-bold">Welcome back !</span></label>
-        <input  onChange={(e) => {
-          setEmail(e.target.value);
-        }}  type="text" className="w-full h-12 rounded-lg px-4 text-lg focus:ring-blue-600 mb-4" placeholder="Email"/>
-        <input   onChange={(e) => {
-          setPassword(e.target.value);
-        }} type="password" className="w-full h-12 rounded-lg px-4 text-lg focus:ring-blue-600 mb-4" placeholder="Password"/>
-        <button  onClick={handleLogin} className="w-full h-12 rounded-lg bg-gray-500 text-gray-200 uppercase font-semibold hover:bg-black text-white-100   transition mb-4">Login</button>
-        {/* <p class="text-right mb-4">Forgot password</p>
-        <label class="text-gray-800 mb-4">or</label>
-        <button class="w-full h-12 rounded-lg bg-red-600 text-gray-200 uppercase font-semibold hover:bg-red-700 text-gray-100 transition mb-4">Sign with Google</button>
-        <button class="w-full h-12 rounded-lg bg-blue-600 text-gray-200 uppercase font-semibold hover:bg-blue-700 text-gray-100 transition mb-4">Sign with Facebook</button>
-        <button class="w-full h-12 rounded-lg bg-gray-800 text-gray-200 uppercase font-semibold hover:bg-gray-900 text-gray-100 transition mb-4">Sign with Github</button> */}
-    </div>
-</div>
-    </div>
+ 
   );
 }
 
 export default Login;
+
+
+
+ 

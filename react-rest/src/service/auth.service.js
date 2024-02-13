@@ -8,16 +8,16 @@ export const axiosClient= axios.create({
 
 
 export const logout = async () => {
-  await axiosClient.get(`/logout`, {
+  return await axiosClient.get(`/logout`, {
     withCredentials: true,
   });
 };
 
 export const getSession = async () => {
-  const res = await axiosClient.get("/check", {
+  return await axiosClient.get("/check", {
     withCredentials: true,
   });
-  return res;
+  
 };
 
 export const login = async (email, password) => {
@@ -39,8 +39,7 @@ export const register = async (email, password) => {
 
 
 export const testAdminRoute = async () => {
-  const response = await axiosClient.get("/admin/admintest", {
+  return await axiosClient.get("/admin/admintest", {
     withCredentials: true,
   });
-  console.log(response);
 };

@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../stores/userStore";
 import { axiosClient } from "./auth.service";
-
 import { Navigate } from "react-router-dom";
 async function checkAuth(path) {
   try {
-    const res = await axiosClient.get(
+   await axiosClient.get(
       "/" + path,
 
       {
@@ -31,22 +30,18 @@ export function AdminAuth({ children }) {
         if (res == true) setIsAdmin(true);
      
         setLoading(false);
-        console.log(isAdmin);
       })
       .catch((err) => {
-        console.log(err, "here");
         setIsAdmin(false);
         setLoading(false);
       });
 
-    console.log(isAdmin, "here");
   }, []);
 
   if (loading) {
     // You might want to render a loading state here
     return null;
   } else {
-    console.log(isAdmin, "ins cope");
     return (
       <>
         {isAdmin == null || isAdmin == false ? (

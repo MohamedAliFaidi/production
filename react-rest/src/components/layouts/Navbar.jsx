@@ -100,14 +100,13 @@ export default function StickyNavbar() {
   );
 
   return (
-    <Navbar className="sticky top-0 z-10  max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+    <Navbar className="sticky top-0 z-10  max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 opacity-80">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
-          as="a"
-          href="#"
+        
           className="mr-4 cursor-pointer py-1.5 font-medium"
         >
-          Material Tailwind
+         <Link to="/">DVLYX</Link> 
         </Typography>
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
@@ -202,26 +201,16 @@ export default function StickyNavbar() {
       <Collapse open={openNav}>
         {navList}
         <div className="flex items-center gap-x-1">
-          <Button fullWidth variant="text" size="sm" className="">
-            <span>
-              {!user._id && (
-                <Link className="a" style={{ float: "right" }} to="/login">
-                  Login
-                </Link>
-              )}
-            </span>
-          </Button>
-          <Button fullWidth variant="gradient" size="sm" className="">
+    
+          {!user._id && (   <Button fullWidth variant="gradient" size="sm" className="">
             <span>
               {" "}
-              {!user._id && (
-                <Link style={{ float: "right" }} className="a" to="/register">
-                  {" "}
-                  Regiter
+              <Link className="a text-center"  to="/login">
+                  Login
                 </Link>
-              )}
+           
             </span>
-          </Button>
+          </Button>   )}
         </div>
       </Collapse>
     </Navbar>
