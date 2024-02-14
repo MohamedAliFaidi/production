@@ -4,6 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../service/auth.service";
 import { useFormik } from 'formik';
 
+
+
+
+
 import {
   Card,
   Input,
@@ -12,10 +16,47 @@ import {
   Typography,
 } from "@material-tailwind/react";
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const validate = values => {
+    const errors = {};
+    if (!values.firstName) {
+      errors.firstName = 'Required';
+    } else if (values.firstName.length > 15) {
+      errors.firstName = 'Must be 15 characters or less';
+    }
+  
+    if (!values.lastName) {
+      errors.lastName = 'Required';
+    } else if (values.lastName.length > 20) {
+      errors.lastName = 'Must be 20 characters or less';
+    }
+  
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = 'Invalid email address';
+    }
+  
+    return errors;
+  };
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [setUser] = useUser((state) => [ state.setUser]);
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password:''
+    },
+    // validate,
+    onSubmit: values => {
+      console.log(values)
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+
+
+  console.log(formik)
 
   const handleLogin = async () => {
     const res = await login(email,password)
@@ -34,7 +75,7 @@ function Login() {
       <Typography color="gray" className="mt-1 font-normal">
         Welcome back! Enter your details to login.
       </Typography>
-      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+      <form  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-1 flex flex-col gap-6">
           {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your Name
@@ -51,9 +92,13 @@ function Login() {
             Your Email
           </Typography>
           <Input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          name="email"
+          id="email"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+          // onChange={(e) => {
+          //   setEmail(e.target.value);
+          // }}
             size="lg"
             placeholder="name@mail.com"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -65,9 +110,13 @@ function Login() {
             Password
           </Typography>
           <Input
-           onChange={(e) => {
-              setPassword(e.target.value);
-            }} 
+          //  onChange={(e) => {
+          //     setPassword(e.target.value);
+          //   }} 
+
+          onChange={formik.handleChange}
+         value={formik.values.password}
+         name="password"
             type="password"
             size="lg"
             placeholder="********"
@@ -95,7 +144,7 @@ function Login() {
           }
           containerProps={{ className: "-ml-2.5" }}
         /> */}
-        <Button onClick={handleLogin} className="mt-6" fullWidth>
+        <Button onClick={formik.onSubmit} className="mt-6" fullWidth>
           Login
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
