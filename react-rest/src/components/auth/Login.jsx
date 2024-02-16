@@ -93,6 +93,7 @@ function Login() {
           </Typography>
           <Input
           name="email"
+          required
           id="email"
           onChange={formik.handleChange}
           value={formik.values.email}
@@ -117,6 +118,7 @@ function Login() {
           onChange={formik.handleChange}
          value={formik.values.password}
          name="password"
+         required
             type="password"
             size="lg"
             placeholder="********"

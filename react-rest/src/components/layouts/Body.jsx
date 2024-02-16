@@ -1,5 +1,4 @@
 import { Auth, AdminAuth, Public } from "../../service/Auth";
-import Admin from "../admin/Admin";
 import { Spinner } from "@material-tailwind/react";
 
 
@@ -17,6 +16,8 @@ const Profile = lazy(() => import('../user/Profile'));
 
 // Lazy load the Home component
 const Home = lazy(() => import('../home/Home'));
+
+const Admin = lazy(()=>import('../admin/Admin'))
 
 
 // Define a fallback component to show while the lazy-loaded component is loading

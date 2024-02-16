@@ -162,13 +162,14 @@ export default function StickyNavbar() {
           </div>
           <IconButton
             variant="text"
+            name="close-open mobile menu"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
             ripple={false}
             onClick={() => setOpenNav(!openNav)}
           >
             {openNav ? (
               <svg
-               name="close mobile navigation"
+                name="close mobile navigation"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 className="h-6 w-6"
@@ -180,6 +181,8 @@ export default function StickyNavbar() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   d="M6 18L18 6M6 6l12 12"
+                  name="close mobile navigation"
+
                 />
               </svg>
             ) : (
@@ -192,6 +195,8 @@ export default function StickyNavbar() {
                 strokeWidth={2}
               >
                 <path
+                                name="close mobile navigation"
+
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   d="M4 6h16M4 12h16M4 18h16"
