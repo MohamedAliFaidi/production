@@ -1,8 +1,10 @@
 import { Auth, AdminAuth, Public } from "../../service/Auth";
 import Admin from "../admin/Admin";
+import { Spinner } from "@material-tailwind/react";
+
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import  {  lazy } from 'react';
+import  {  lazy ,Suspense } from 'react';
 
 // Lazy load the Login component
 const Login = lazy(() => import('../auth/Login'));
@@ -16,7 +18,12 @@ const Profile = lazy(() => import('../user/Profile'));
 // Lazy load the Home component
 const Home = lazy(() => import('../home/Home'));
 
+
 // Define a fallback component to show while the lazy-loaded component is loading
+const LoadingFallback = () => {
+
+  return   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}><Spinner className="h-16 w-16 text-gray-900/50" /></div>
+}
 
 function Body() {
   return (
@@ -58,7 +65,9 @@ function Body() {
         <Route
           path="/"
           element={
+            <Suspense  fallback={<LoadingFallback />}  >
             <Home />
+            </Suspense>
           }
         />
         <Route

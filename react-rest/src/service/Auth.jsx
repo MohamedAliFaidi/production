@@ -1,8 +1,11 @@
 import { useState, useEffect, Suspense } from "react";
+import { Spinner } from "@material-tailwind/react";
 
-export const LoadingFallback = () => (
-  <div>Loading...</div>
-);
+
+ const LoadingFallback = () => {
+
+  return   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}><Spinner className="h-16 w-16 text-gray-900/50" /></div>
+}
 
 import { useUser } from "../stores/userStore";
 import { axiosClient } from "./auth.service";
