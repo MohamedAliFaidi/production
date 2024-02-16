@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+
+export const LoadingFallback = () => (
+  <div>Loading...</div>
+);
+
 import { useUser } from "../stores/userStore";
 import { axiosClient } from "./auth.service";
 import { Navigate } from "react-router-dom";
 async function checkAuth(path) {
   try {
-   await axiosClient.get(
+    await axiosClient.get(
       "/" + path,
 
       {
@@ -20,7 +25,7 @@ async function checkAuth(path) {
 export function AdminAuth({ children }) {
   const [isAdmin, setIsAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [setUser]=useUser((state)=>[state.setUser])
+  const [setUser] = useUser((state) => [state.setUser])
 
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export function AdminAuth({ children }) {
       .then((res) => {
         console.log(res, "res");
         if (res == true) setIsAdmin(true);
-     
+
         setLoading(false);
       })
       .catch((err) => {
@@ -47,7 +52,9 @@ export function AdminAuth({ children }) {
         {isAdmin == null || isAdmin == false ? (
           <Navigate to="/home" />
         ) : (
-          children
+          <Suspense fallback={<LoadingFallback />}>
+
+            {children}</Suspense>
         )}
       </>
     );
@@ -57,15 +64,15 @@ export function AdminAuth({ children }) {
 export function Auth({ children }) {
   const [isAuth, setIsAuth] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [setUser]=useUser((state)=>[state.setUser])
+  const [setUser] = useUser((state) => [state.setUser])
 
 
   useEffect(() => {
     checkAuth("check")
       .then((res) => {
         setIsAuth(res);
-        if(res == false)
-        setUser({})
+        if (res == false)
+          setUser({})
         setLoading(false);
       })
       .catch(() => {
@@ -77,17 +84,21 @@ export function Auth({ children }) {
   if (loading) {
     // You might want to render a loading state here
     return null;
-  } else return <>{isAuth ? children : <Navigate to="/login" />}</>;
+  } else return <>{isAuth ?    <Suspense fallback={<LoadingFallback />}>
+
+  {children}</Suspense> : <Navigate to="/login" />}</>;
 }
 
 export function Public({ children }) {
-  const [user]=useUser((state)=>[state.user])
+  const [user] = useUser((state) => [state.user])
   return (
     <>
       {user.email ? (
         <Navigate to="/" />
       ) : (
-        children
+        <Suspense fallback={<LoadingFallback />}>
+
+        {children}</Suspense>
       )}
     </>
   );

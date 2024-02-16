@@ -102,12 +102,12 @@ export default function StickyNavbar() {
   return (
     <Navbar className="sticky top-0 z-10  max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 opacity-80">
       <div className="flex items-center justify-between text-blue-gray-900">
+      <Link to="/">
         <Typography
         
           className="mr-4 cursor-pointer py-1.5 font-medium"
-        >
-         <Link to="/">DVLYX</Link> 
-        </Typography>
+        >DVLYX  
+        </Typography></Link> 
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
@@ -125,7 +125,7 @@ export default function StickyNavbar() {
                 </span>
               </Button>
             )}
-            {!user._id && (
+            {/* {!user._id && (
               <Button
                 variant="gradient"
                 size="sm"
@@ -138,7 +138,7 @@ export default function StickyNavbar() {
                   </Link>
                 </span>
               </Button>
-            )}
+            )} */}
             {user._id && (
               <Button
                 variant="gradient"

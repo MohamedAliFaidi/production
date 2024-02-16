@@ -1,13 +1,26 @@
-import { Auth, AdminAuth,Public } from "../../service/Auth";
+import { Auth, AdminAuth, Public } from "../../service/Auth";
 import Admin from "../admin/Admin";
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "../auth/Login";
-import Register from "../auth/Register";
-import Profile from "../user/Profile";
-import Home from "../home/Home";
+import  {  lazy } from 'react';
+
+// Lazy load the Login component
+const Login = lazy(() => import('../auth/Login'));
+
+// Lazy load the Register component
+const Register = lazy(() => import('../auth/Register'));
+
+// Lazy load the Profile component
+const Profile = lazy(() => import('../user/Profile'));
+
+// Lazy load the Home component
+const Home = lazy(() => import('../home/Home'));
+
+// Define a fallback component to show while the lazy-loaded component is loading
+
 function Body() {
   return (
+    
     <div>
       <Routes>
         <Route
@@ -42,26 +55,26 @@ function Body() {
             </Auth>
           }
         />
-         <Route
+        <Route
           path="/"
           element={
-            
-              <Home />
-          
+            <Home />
           }
         />
-          <Route
+        <Route
           path="*"
           element={
-            
-              <Navigate to="/" />
-          
+
+            <Navigate to="/" />
+
           }
         />
+   
       </Routes>
 
-      
+
     </div>
+
   );
 }
 

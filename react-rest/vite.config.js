@@ -11,6 +11,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react(),viteCompression(),splitVendorChunkPlugin()],
   build: {
+    chunkSizeWarningLimit:1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -28,32 +29,7 @@ export default defineConfig({
             ) {
               return 'axios_vendor';
             }
-            if (
-              id.includes('@material-tailwind') 
-            ) {
-              if (
-                id.includes('utils') 
-                ) {
-                return '@material-tailwind__utils_vendor';
-                }
-                if (
-                  id.includes('types') 
-                  ) {
-                  return '@material-tailwind__types_vendor';
-                  }
-
-                  if (
-                    id.includes('components') 
-                    ) {
-                    return '@material-tailwind__components_vendor';
-                    }
-                    if (
-                      id.includes('theme') 
-                      ) {
-                      return '@material-tailwind__theme_vendor';
-                      }
-              
-            }
+         
             if (
               id.includes('react-router-dom') ||
               id.includes('@remix-run') ||
@@ -64,24 +40,14 @@ export default defineConfig({
             if (id.includes('@heroicons')) {
               return '@heroicons_vendor';
             }
-            if ( id.includes('react-dom')  || id.includes('react-hot-toast') || id.includes('zustand')) {
+            if (  id.includes('react-hot-toast') || id.includes('zustand')) {
               return 'react-dom_vendor';
             }
             if (  id.includes('react-hot-toast') ) {
               return 'react-hot-toast_vendor';
             }
-            if (  id.includes('use-sync-external-store') ) {
-              console.log(id)
-
-              return 'use-sync-external-store_vendor';
-            }
-            if (  id.includes('@floating-ui')  ) {
-              console.log(id)
-
-              return ' @floating-ui_vendor';
-            }
-           
-            if (  id.includes('react') && !id.includes('@material-tailwind') ) {
+    
+            if (  id.includes('react')) {
               console.log(id)
 
               return 'react_vendor';
