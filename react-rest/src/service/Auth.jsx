@@ -56,7 +56,6 @@ export function AdminAuth({ children }) {
           <Navigate to="/home" />
         ) : (
           <Suspense fallback={<LoadingFallback />}>
-
             {children}</Suspense>
         )}
       </>
@@ -87,9 +86,7 @@ export function Auth({ children }) {
   if (loading) {
     // You might want to render a loading state here
     return null;
-  } else return <>{isAuth ?    <Suspense fallback={<LoadingFallback />}>
-
-  {children}</Suspense> : <Navigate to="/login" />}</>;
+  } else return <>{isAuth ?    <Suspense fallback={<LoadingFallback />}>{children}</Suspense> : <Navigate to="/login" />}</>;
 }
 
 export function Public({ children }) {

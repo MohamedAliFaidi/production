@@ -105,12 +105,14 @@ function Register() {
              onChange={(e) => {
                verifyAndSetEmail(e);
              }}
+             name="email"
                size="lg"
                placeholder="name@mail.com"
                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                labelProps={{
                  className: "before:content-none after:content-none",
                }}
+               required
              />
              <Typography variant="h6" color="blue-gray" className="-mb-3">
                Password
@@ -119,6 +121,8 @@ function Register() {
               onChange={(e) => {
                  verifyAndSetPassword(e);
                }} 
+               name="password"
+               required
                type="password"
                size="lg"
                placeholder="********"
@@ -146,12 +150,12 @@ function Register() {
              }
              containerProps={{ className: "-ml-2.5" }}
            /> */}
-           <Button onClick={handleRegister} className="mt-6" fullWidth>
+           <Button name="register" onClick={handleRegister} className="mt-6" variant="gradient" fullWidth>
              Register
            </Button>
            <Typography color="gray" className="mt-4 text-center font-normal">
              Already have an account?{" "}
-             <Link to="/login" className="font-medium text-gray-900">
+             <Link name="login" to="/login" className="font-medium text-gray-900">
                Login
              </Link>
            </Typography>

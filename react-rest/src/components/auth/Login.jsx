@@ -144,12 +144,12 @@ function Login() {
           }
           containerProps={{ className: "-ml-2.5" }}
         /> */}
-        <Button onClick={formik.onSubmit} className="mt-6" fullWidth>
+        <Button name="login" onClick={formik.onSubmit} className="mt-6"  variant="gradient" fullWidth>
           Login
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
           dont have an account yet?{" "}
-          <Link to="/register" className="font-medium text-gray-900">
+          <Link name="register" to="/register" className="font-medium text-gray-900">
             Register
           </Link>
         </Typography>

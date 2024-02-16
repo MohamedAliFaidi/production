@@ -73,15 +73,10 @@ function Body() {
         <Route
           path="*"
           element={
-
             <Navigate to="/" />
-
           }
         />
-   
       </Routes>
-
-
     </div>
 
   );
