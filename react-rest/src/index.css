@@ -2,26 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 html {
+  height: auto;
+  margin: 0;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgb(238, 222, 253) 0%, rgb(147, 87, 243) 35%, rgb(255, 212, 246) 100%);
+
+}
+@media screen and (min-width: 650px) {
+  html {
     height: auto;
-	margin: 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(229, 227, 255) 0%,  rgb(147, 87, 243) 35%,  rgb(255, 212, 246) 100%);
+  }
 }
 
-
-@media screen  and (max-width: 650px){
-
-html{
+@media screen and (max-width: 900px) {
+  html {
     height: auto;
-    background-size: cover;
-
-    background-repeat: no-repeat;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%,  rgb(147, 87, 243)35%,  rgb(255, 212, 246) 100%);
+  }
 }
-}
-    
 
+@media screen and (max-width: 650px) {
+  html {
+    height: auto;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%,  rgb(147, 87, 243) 35%,  rgb(255, 212, 246) 100%);
+  }
+}

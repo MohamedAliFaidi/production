@@ -1,11 +1,19 @@
 import { useState, useEffect, Suspense } from "react";
 import { Spinner } from "@material-tailwind/react";
 
-
- const LoadingFallback = () => {
-
-  return   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}><Spinner className="h-16 w-16 text-gray-900/50" /></div>
-}
+const LoadingFallback = () => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Spinner className="h-16 w-16 text-gray-900/50" />
+    </div>
+  );
+};
 
 import { useUser } from "../stores/userStore";
 import { axiosClient } from "./auth.service";
@@ -28,13 +36,11 @@ async function checkAuth(path) {
 export function AdminAuth({ children }) {
   const [isAdmin, setIsAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [setUser] = useUser((state) => [state.setUser])
-
+  const [setUser] = useUser((state) => [state.setUser]);
 
   useEffect(() => {
     checkAuth("isadmin")
       .then((res) => {
-        console.log(res, "res");
         if (res == true) setIsAdmin(true);
 
         setLoading(false);
@@ -43,7 +49,6 @@ export function AdminAuth({ children }) {
         setIsAdmin(false);
         setLoading(false);
       });
-
   }, []);
 
   if (loading) {
@@ -51,14 +56,13 @@ export function AdminAuth({ children }) {
     return null;
   } else {
     return (
-      <>
+      <Suspense fallback={<LoadingFallback />}>
         {isAdmin == null || isAdmin == false ? (
           <Navigate to="/home" />
         ) : (
-          <Suspense fallback={<LoadingFallback />}>
-            {children}</Suspense>
+           children 
         )}
-      </>
+      </Suspense>
     );
   }
 }
@@ -66,15 +70,13 @@ export function AdminAuth({ children }) {
 export function Auth({ children }) {
   const [isAuth, setIsAuth] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [setUser] = useUser((state) => [state.setUser])
-
+  const [setUser] = useUser((state) => [state.setUser]);
 
   useEffect(() => {
     checkAuth("check")
       .then((res) => {
         setIsAuth(res);
-        if (res == false)
-          setUser({})
+        if (res == false) setUser({});
         setLoading(false);
       })
       .catch(() => {
@@ -86,20 +88,19 @@ export function Auth({ children }) {
   if (loading) {
     // You might want to render a loading state here
     return null;
-  } else return <>{isAuth ?    <Suspense fallback={<LoadingFallback />}>{children}</Suspense> : <Navigate to="/login" />}</>;
+  } else
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        {isAuth ? children : <Navigate to="/login" />}
+      </Suspense>
+    );
 }
 
 export function Public({ children }) {
-  const [user] = useUser((state) => [state.user])
+  const [user] = useUser((state) => [state.user]);
   return (
-    <>
-      {user.email ? (
-        <Navigate to="/" />
-      ) : (
-        <Suspense fallback={<LoadingFallback />}>
-
-        {children}</Suspense>
-      )}
-    </>
+    <Suspense fallback={<LoadingFallback />}>
+      {user.email ? <Navigate to="/" /> : children }
+    </Suspense>
   );
 }
