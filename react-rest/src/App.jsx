@@ -24,7 +24,7 @@ function App() {
   
   <div>
     <Navbar />
-    <Body/>
+    <div style={{height:"90%"}}>  <Body/></div>
     <Footer/>
     </div>
   );

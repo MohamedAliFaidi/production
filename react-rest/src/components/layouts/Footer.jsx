@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer id="footer" className="relative w-full ">
       <div className="mx-auto w-full max-w-7xl px-8">
-        <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 justify-between gap-2 md:grid-cols-2">
           <Typography variant="h5" className="mb-6">
             DVLYX
           </Typography>
@@ -50,9 +50,9 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
+        <div className=" flex w-full flex-col items-center justify-center  py-4 md:flex-row md:justify-between">
           <Typography
-            variant="small"
+           
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
             &copy; {currentYear} <a href="https://material-tailwind.com/">Material Tailwind</a>. All
