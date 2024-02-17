@@ -1,36 +1,31 @@
 const express = require("express");
-const app = express();
+const path = require("path");
+const mongoose = require("mongoose");
+const cookieParser = require('cookie-parser')
+const cors = require("cors")
+const dotenv = require("dotenv");
 const routes = require("./routes/tank.route")
 const authRoutes = require("./routes/auth.route")
 const privateRoute = require("./routes/private.route")
 const adminRoute = require('./routes/admin.route')
 const uploadRoute = require("./routes/upload.route")
 
-const cors = require("cors")
-app.use(express.json({ limit: '35mb'}));
+dotenv.config();
 
-const cookieParser = require('cookie-parser')
-
+const app = express();
+app.use(express.json({ limit: '35mb' }));
 app.use(cookieParser())
-
-app.use(  express.urlencoded({
+app.use(express.urlencoded({
   extended: true,
   limit: '35mb',
   parameterLimit: 50000,
 }),)
-
-
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }));
 
-const mongoose = require("mongoose");
 
-
-const dotenv = require("dotenv");
-
-dotenv.config();
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -42,14 +37,14 @@ mongoose
 
 
 
-  app.use(routes);
-  app.use(authRoutes);
-  app.use(privateRoute)
-  app.use(adminRoute);
-  app.use(uploadRoute)
+app.use(routes);
+app.use(authRoutes);
+app.use(privateRoute)
+app.use(adminRoute);
+app.use(uploadRoute)
 
 
 
-  app.listen(3000,()=>{
-    console.log("listening on port 3000")
+app.listen(3000, () => {
+  console.log("listening on port 3000")
 })
