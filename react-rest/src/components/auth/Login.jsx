@@ -1,7 +1,11 @@
 import { useUser } from "../../stores/userStore";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../service/auth.service";
-import { useFormik } from "formik";
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+
+
+
 
 import {
   Card,
@@ -10,49 +14,29 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
-function Login() {
-  const navigate = useNavigate();
-  const [setUser] = useUser((state) => [state.setUser]);
-  const [constants] =useState({
-    PASSWORD_REGEX : /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    EMAIL_REGEX:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-  })
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validate: (values) => {
-      let errors = {
-        email: "",
-        password: "",
-      };
-      if (!values.email) {
-        errors.email = "Required";
-      } else if (
-        !constants.EMAIL_REGEX.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
-      }
-      if (!values.password) {
-        errors.password = "Required";
-      } else if (
-        !constants.PASSWORD_REGEX.test(values.password)
-      ) {
-        errors.password = "alphanumerics and specials characters are required";
-      }
-      return errors;
-    },
-    onSubmit: async (values) => {
-      console.log(values);
-    },
-  });
 
-  const handleLogin = async () => {
+function Login() {
+  const getCharacterValidationError = (str) => {
+    return `Your password must have at least 1 ${str} character`;
+  };
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string()
+    .required("Please enter a password")
+    // check minimum characters
+    .min(8, "Password must have at least 8 characters")
+    // different error messages for different requirements
+    .matches(/[0-9]/, getCharacterValidationError("digit"))
+    .matches(/[a-z]/, getCharacterValidationError("lowercase"))
+    .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
+  });
+  const [setUser] = useUser((state) => [state.setUser]);
+
+  const handleLogin = async (email, password) => {
     const res = await login(email, password);
+    console.log(res)
     if (res.data.user) {
       setUser(res.data.user);
-      navigate("/profile");
     }
   };
 
@@ -67,15 +51,29 @@ function Login() {
         <Typography color="gray" className="mt-1 font-normal">
           Welcome back! Enter your details to login.
         </Typography>
-        <form
-          onSubmit={formik.handleSubmit}
+        <Formik
+       initialValues={{
+         email: '',
+         password:''
+       }}
+       
+       validationSchema={LoginSchema}
+       onSubmit={async values => {
+         // same shape as initial values
+         await handleLogin(values.email,values.password)
+       }}
+       >
+         {({ errors, touched }) => (
+        <Form
+          
           className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
         >
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Email
             </Typography>
-            <Input
+            <Field    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="email" />
+            {/* <Input
               name="email"
               required={true}
               id="email"
@@ -87,16 +85,20 @@ function Login() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-            />
+            /> */}
 
-              <Typography variant="h6" color="red" className="">
-                {formik.submitCount > 0  ? formik.errors.email :""}
-              </Typography>
+            {/* <div required={false} variant="h6" color="red" className="">
+              {formik.submitCount > 0 ? formik.errors.email : ""}
+            </div> */}
+               {errors.email && touched.email ? (
+             <div>{errors.email}</div>
+           ) : null}
 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Password
             </Typography>
-            <Input
+            <Field type="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="password" />
+            {/* <Input
               onChange={formik.handleChange}
               value={formik.values.password}
               name="password"
@@ -108,16 +110,16 @@ function Login() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-            />
+            /> */}
           </div>
 
-          <Typography variant="h6" color="red" className="">
-                {formik.submitCount > 0  ? formik.errors.password :""}
-              </Typography>
+          {/* <div required={false} variant="h6" color="red" className="">
+            {formik.submitCount > 0 ? formik.errors.password : ""}
+          </div> */}
 
           <Button
             type="submit"
-            name="login"
+            name="submit"
             className="mt-6"
             variant="gradient"
             fullWidth
@@ -134,7 +136,8 @@ function Login() {
               Register
             </Link>
           </Typography>
-        </form>
+        </Form>)}
+        </Formik> 
       </Card>
     </div>
   );
