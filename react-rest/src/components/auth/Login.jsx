@@ -1,35 +1,11 @@
-import { useUser } from "../../stores/userStore";
 import { Link } from "react-router-dom";
-import { login } from "../../service/auth.service";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-
-import { Card,  Button, Typography } from "@material-tailwind/react";
+import { Card, Button, Typography } from "@material-tailwind/react";
+import AuthContext from "../../contexts/auth.context";
+import { useContext } from "react";
 
 function Login() {
-  const getCharacterValidationError = (str) => {
-    return `Your password must have at least 1 ${str} character`;
-  };
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string()
-      .required("Please enter a password")
-      // check minimum characters
-      .min(8, "Password must have at least 8 characters")
-      // different error messages for different requirements
-      .matches(/[0-9]/, getCharacterValidationError("digit"))
-      .matches(/[a-z]/, getCharacterValidationError("lowercase"))
-      .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
-  });
-  const [setUser] = useUser((state) => [state.setUser]);
-
-  const handleLogin = async (email, password) => {
-    const res = await login(email, password);
-    console.log(res);
-    if (res.data.user) {
-      setUser(res.data.user);
-    }
-  };
+  const { LoginSchema, handleLogin } = useContext(AuthContext);
 
   return (
     <div
@@ -65,7 +41,6 @@ function Login() {
                 {errors.email && touched.email ? (
                   <div>{errors.email}</div>
                 ) : null}
-
                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                   Password
                 </Typography>

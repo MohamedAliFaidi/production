@@ -1,38 +1,6 @@
-// import "./navbar.css"
-
-// function Navbar() {
-
-//   return (
-//     <div className="navbar" >
-//       <div className="navitem"> <Link className="a"  to="/"><i class="fa fa-fw fa-home"></i>Home</Link></div>
-//      <div className="navitem">  {!user._id && <Link className="a" style={{float:"right"}}  to="/login"><i className="fa fa-fw fa-user"></i>Login</Link>}</div>
-//      <div className="navitem">
-//      {!user._id && <Link style={{float:"right"}}  className="a"  to="/register"> <i className="fa fa-fw fa-user"></i>Regiter</Link>}
-//       </div>
-//       <div className="navitem">
-//       {user._id && <Link className="a"  to="/profile"><i className="fa fa-fw fa-user"></i>Profile</Link>}</div>
-
-//       <div className="navitem">{user._id && <a className="a" onClick={() => {
-//         logout(); setUser({})
-//       }}>Logout</a>} </div>
-
-// {/* <div class="navbar">
-//   <a class="active" href="#"><i className="fa fa-fw fa-home"></i> Home</a>
-//   <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-//   <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
-//   <a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
-// </div> */}
-//     </div>
-//   )
-// }
-
-// export default Navbar
-
 import { Link } from "react-router-dom";
 import { useUser } from "../../stores/userStore";
-
 import { logout } from "../../service/auth.service";
-
 import { useState, useEffect } from "react";
 import {
   Navbar,
@@ -40,7 +8,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Card,
 } from "@material-tailwind/react";
 
 export default function StickyNavbar() {
@@ -56,94 +23,51 @@ export default function StickyNavbar() {
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-     <Link name="home" className="a" to="/">   <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-      
-        Home
-      
-      </Typography>  </Link>
-      {/* <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
-      </Typography> */}
+      <Link name="home" className="a" to="/">
+        {" "}
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          Home
+        </Typography>{" "}
+      </Link>
     </ul>
   );
 
   return (
     <Navbar className="sticky top-0 z-10  max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 opacity-80">
       <div className="flex items-center justify-between text-blue-gray-900">
-      <Link className="a" name="home" to="/">
-        <Typography
-        
-        
-          className="mr-4 cursor-pointer py-1.5 font-medium"
-        >DVLYX  
-        </Typography></Link> 
+        <Link className="a" name="home" to="/">
+          <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
+            DVLYX
+          </Typography>
+        </Link>
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
             {!user._id && (
-              <Link name="login" className="btn bg-bla" style={{ float: "right" }} to="/login">
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
+              <Link
+                name="login"
+                className="btn bg-bla"
+                style={{ float: "right" }}
+                to="/login"
               >
-                <span>
-                  {" "}
-                  
-                    Login
-                </span>
-              </Button>
-                  </Link>
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                >
+                  <span> Login</span>
+                </Button>
+              </Link>
             )}
-            {/* {!user._id && (
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>
-                  {" "}
-                  <Link style={{ float: "right" }} className="a" to="/register">
-                    Regiter
-                  </Link>
-                </span>
-              </Button>
-            )} */}
+
             {user._id && (
               <Button
-              name="logout"
+                name="logout"
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block bg-black"
@@ -152,11 +76,7 @@ export default function StickyNavbar() {
                   setUser({});
                 }}
               >
-                <span>
-                  {" "}
-              
-                </span>{" "}
-                Logout
+               Logout
               </Button>
             )}
           </div>
@@ -182,12 +102,11 @@ export default function StickyNavbar() {
                   strokeLinejoin="round"
                   d="M6 18L18 6M6 6l12 12"
                   name="close mobile navigation"
-
                 />
               </svg>
             ) : (
               <svg
-              name="open mobile navigation"
+                name="open mobile navigation"
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
                 fill="none"
@@ -195,8 +114,7 @@ export default function StickyNavbar() {
                 strokeWidth={2}
               >
                 <path
-                                name="close mobile navigation"
-
+                  name="close mobile navigation"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   d="M4 6h16M4 12h16M4 18h16"
@@ -209,16 +127,28 @@ export default function StickyNavbar() {
       <Collapse open={openNav}>
         {navList}
         <div className="flex items-center gap-x-1">
-    
-             
-          {!user._id && ( <Link  name="login"  to="/login">   <Button fullWidth variant="gradient"  className="btn">
-            <span>
+          {!user._id && (
+            <Link name="login" to="/login">
               {" "}
-                  Login
-                
-           
-            </span>
-          </Button></Link>   )}
+              <Button  size="sm" name="login"  variant="gradient" >
+                <span> Login</span>
+              </Button>
+            </Link>
+          )}
+              {user._id && (
+              <Button
+                name="logout"
+                variant="gradient"
+                size="sm"
+                className=" lg:inline-block bg-black"
+                onClick={() => {
+                  logout();
+                  setUser({});
+                }}
+              >
+                 <span> Logout</span>
+              </Button>
+            )}
         </div>
       </Collapse>
     </Navbar>
