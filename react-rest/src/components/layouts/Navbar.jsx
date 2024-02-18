@@ -1,12 +1,13 @@
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../stores/userStore";
 import { logout } from "../../service/auth.service";
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { IoLogIn } from "react-icons/io5";
+import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { MdAccountCircle } from "react-icons/md";
 
 export default function StickyNavbar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useUser((state) => [state.user, state.setUser]);
   const [nav, setNav] = useState(false);
 
@@ -45,11 +46,19 @@ export default function StickyNavbar() {
               <div
                 className={`absolute ${
                   openAvatarDropdown ? "block" : "hidden"
-                } bg-slate-300 rounded shadow-md mt-2 space-y-2`}
+                } bg-pink-300 rounded shadow-md mt-2 space-y-2`}
               >
-                <div className="p-4 flex flex-col ">
-                  <Link to="/profile">Profile</Link>
-                  <Link to="/dashboard">Dashboard</Link>
+                <div className="p-4 flex flex-col w-100 ">
+                  <Link to="/profile">
+                    {" "}
+                    <MdAccountCircle />
+                    Profile
+                  </Link>
+                  <hr class="h-px  bg-gray-200 border-0 dark:bg-gray-700" />
+
+                  {/* <Link to="/dashboard">Dashboard</Link> */}
+                  {/* <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"/> */}
+
                   <Link
                     name="logout"
                     variant="gradient"
@@ -60,6 +69,7 @@ export default function StickyNavbar() {
                       setUser({});
                     }}
                   >
+                    <IoLogOut />
                     Logout
                   </Link>
                 </div>
@@ -78,7 +88,9 @@ export default function StickyNavbar() {
               style={{ float: "right" }}
               to="/login"
             >
-              <span><IoLogIn  />  Login</span>
+              <span>
+                <IoLogIn /> Login
+              </span>
             </Link>
           )}
         </li>
@@ -106,17 +118,17 @@ export default function StickyNavbar() {
         >
           {" "}
           {!user._id && (
-          <div style={{display:"flex"}} > <Link
-              name="login"
-              className="btn"
-              style={{ float: "left" }}
-              to="/login"
-            >
-               
-                 <IoLogIn  /> Login
+            <div style={{ display: "flex" }}>
+              {" "}
+              <Link
+                name="login"
+                className="btn"
+                style={{ float: "left" }}
+                to="/login"
+              >
+                <IoLogIn /> Login
                 {}
-            </Link>
-          
+              </Link>
             </div>
           )}
         </li>
@@ -144,14 +156,11 @@ export default function StickyNavbar() {
                     size="sm"
                     className="bg-auto"
                     onClick={() => {
-                      
-                      logout()
-                      setUser({})
-                      
-                      
-
+                      logout();
+                      setUser({});
                     }}
                   >
+                    <IoLogOut />
                     Logout
                   </Link>
                 </div>
