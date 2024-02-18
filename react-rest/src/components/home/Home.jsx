@@ -1,34 +1,32 @@
-import { Suspense } from "react"
-import { Spinner } from "@material-tailwind/react";
-
-const LoadingFallback = () => {
-  return   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}><Spinner className="h-16 w-16 text-gray-900/50" /></div>
-}
 
 
 function Home() {
   return (
-  
-    <div><div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-    <div
-        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Welcome to simple blog
+    <div className="flex justify-between items-center  py-10 lg:py-0 border-y border-black xl:border-hidden xl:rounded-xl">
+      {/* Hero content */}
+      <div className="px-10 space-y-5 lg:py-6">
+        <h1 className="text-6xl md:text-7xl max-w-xl font-serif w-11/12 sm:w-9/12">
+          <span className="underline decoration-black decoration-4">
+            Medium
+          </span>{" "}
+          is a place to write, read and connect.
         </h1>
-        <p class="mb-8 leading-relaxed">Here's where I put my thoughts</p>
-        <div class="flex justify-center">
-            <a href=""
-                class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">Read</a>
-            <a href=""
-                class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">About
-                me</a>
-        </div>
+        <h2 className="w-9/12 font-normal">
+          It's easy and free to post your thinking on any topic and connect with
+          millions of readers.
+        </h2>
+        <button className="border border-black bg-white px-4 py-2 rounded-full font-medium active:scale-90 transition duration-100">
+          Start Writing
+        </button>
+      </div>
+      {/* Hero image */}
+      <img
+        className="hidden sm:inline-flex h-40 lg:h-80 xl:h-full"
+        src="https://shubh73-medium.vercel.app/M.png"
+        alt=""
+      />
     </div>
-    <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-        <img class="object-cover object-center rounded" alt="hero" src="https://www.svgrepo.com/show/358718/logo-windows.svg"/>
-    </div>
-</div></div>
-
-  )
+  );
 }
 
-export default Home
+export default Home;

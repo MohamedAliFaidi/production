@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import * as Yup from "yup";
 import { useUser } from "../stores/userStore";
-import { login } from "../service/auth.service";
+import { login, register } from "../service/auth.service";
 import toast from "react-hot-toast";
 export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
@@ -35,12 +35,25 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((error) => toast.error(error.response.data.message));
   };
+  const handleRegister = (email, password) => {
+    register(email, password)
+      .then((res) => {
+        console.log(res);
+
+        toast.success(`Welcome${""}`);
+      })
+      .catch((error) => toast.error(error.response.data.message));
+  };
+
+  const RegisterSchema = LoginSchema;
 
   return (
     <AuthContext.Provider
       value={{
         LoginSchema,
         handleLogin,
+        RegisterSchema,
+        handleRegister,
       }}
     >
       {children}

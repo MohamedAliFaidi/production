@@ -10,7 +10,9 @@ export const axiosClient= axios.create({
 export const logout = async () => {
   return await axiosClient.get(`/logout`, {
     withCredentials: true,
-  });
+  }).then(()=>{
+    window.location.pathname = '/'
+  })
 };
 
 export const getSession = async () => {
