@@ -21,7 +21,7 @@ export const getSession = async () => {
 };
 
 export const login = async (email, password) => {
-  try { 
+ 
      return   await axiosClient.post(
       "/login",
       { email: email, password: password },
@@ -29,9 +29,7 @@ export const login = async (email, password) => {
         withCredentials: true,
       }
     )
-  } catch (error) {
-    return error
-  }
+
 };
 
 export const register = async (email, password) => {

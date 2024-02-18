@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import * as Yup from "yup";
 import { useUser } from "../stores/userStore";
 import { login } from "../service/auth.service";
@@ -6,34 +6,35 @@ import toast from "react-hot-toast";
 export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [setUser] = useUser((state) => [state.setUser]);
-  const getCharacterValidationError = (str) => {
-    return `Your password must have at least 1 ${str} character`;
-  };
+  const [constants] = useState({
+    EMAIL_REGEX:
+      /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    PASSWORD_REGEX:
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/,
+  });
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().required("Required").matches(/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Invalid email"),
+    email: Yup.string()
+      .required("Required")
+      .matches(constants.EMAIL_REGEX, "Invalid email"),
     password: Yup.string()
       .required("Please enter a password")
       .min(8, "Password must have at least 8 characters")
-      .matches(/[0-9]/, getCharacterValidationError("digit"))
-      .matches(/[a-z]/, getCharacterValidationError("lowercase"))
-      .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
+      .matches(
+        constants.PASSWORD_REGEX,
+        "Use upper and lower case characters, digits and special character"
+      ),
   });
-  const handleLogin =  (email, password) => {
- 
-      login(email, password).then(res=>{
-          if (res && res.data?.user) {
-            setUser(res.data.user);
-            toast.success(`Welcome back ${res.data.user.email.split("@")[0]}`)
-          }
-          else {
-            toast.error(res.response.data.message)
-          }
-        })
-      
-    
-    
-    }
+  const handleLogin = (email, password) => {
+    login(email, password)
+      .then((res) => {
+        if (res && res.data?.user) {
+          setUser(res.data.user);
+          toast.success(`Welcome back ${res.data.user.email.split("@")[0]}`);
+        }
+      })
+      .catch((error) => toast.error(error.response.data.message));
+  };
 
   return (
     <AuthContext.Provider
