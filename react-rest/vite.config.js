@@ -46,9 +46,20 @@ export default defineConfig({
             if (  id.includes('react-hot-toast') ) {
               return 'react-hot-toast_vendor';
             }
+            if (  id.includes('formik') ) {
+              return 'formik_vendor';
+            }
+            if (  id.includes('yup') ) {
+              return 'yup_vendor';
+            }
+            if (  id.includes('react_icons') ) {
+              return 'react_icons_vendor';
+            }
+
+            
+
     
             if (  id.includes('react')) {
-              console.log(id)
 
               return 'react_vendor';
             }
