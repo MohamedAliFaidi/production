@@ -67,6 +67,7 @@ export function Auth({ children }) {
         setLoading(false);
       })
       .catch(() => {
+        setUser({})
         setIsAuth(false);
         setLoading(false);
       });

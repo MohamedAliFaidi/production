@@ -10,25 +10,15 @@ import "./App.css";
 import Footer from "./components/layouts/Footer";
 
 function App() {
-  const [user, setUser] = useUser((state) => [state.user, state.setUser]);
-  useEffect(() => {
-    if (document.cookie.split("=").includes("Authorization")) {
-      getSession()
-        .then((res) => {})
-        .catch((err) => setUser({}));
-    }
-  }, []);
+
 
   return (
     <div>
       <Navbar />
       <div className="max-w-7xl mx-auto">
-        {" "}
         <Body />
       </div>
-
       <div className="max-w-7xl mx-auto">
-        {" "}
         <Footer />
       </div>
     </div>
