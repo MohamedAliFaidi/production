@@ -38,7 +38,6 @@ function checkAuth(req, res, next) {
   } catch (error) {
     console.log(error)
     console.log('here3')
-
     return res.status(500).json({ error: error });
   }
 }
