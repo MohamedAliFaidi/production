@@ -105,7 +105,7 @@ export default function StickyNavbar() {
       <ul
         className={
           nav
-            ? "fixed md:hidden left-0 top-0 w-[60%] h-full bg-gradient-to-r   from-purple-50 via-purple-100 to-pink-100 duration-500 z-50"
+            ? "fixed md:hidden left-0 top-0 w-[60%] h-full bg-gradient-to-r from-purple-100 via-purple-300 to-pink-200 duration-500 z-50"
             : "ease-in-out w-[100%] duration-500 fixed top-0 bottom-0 left-[-100%] nav-bg"
         }
       >
@@ -118,7 +118,7 @@ export default function StickyNavbar() {
         >
           {" "}
           {!user._id && (
-            <div style={{ display: "flex" }}>
+            <div  style={{ display: "flex" }}>
               {" "}
               <Link
                 name="login"
@@ -134,12 +134,12 @@ export default function StickyNavbar() {
         </li>
         {user._id && (
           <li
-            className="ml-4 p-4  rounded-xl  duration-300 transform transition duration-500 
+            className="ml-4 p-4   rounded-xl  duration-300 transform transition duration-500 
             hover:scale-110 cursor-pointer  w-[100%]"
           >
             <div
               onClick={toggleAvatarDropdown}
-              className="relative transition-all duration-500"
+              className="relative  transition-all duration-500"
             >
               <span className="cursor-pointer">Avatar</span>
               <div
@@ -147,9 +147,14 @@ export default function StickyNavbar() {
                   openAvatarDropdown ? "block" : "hidden"
                 } bg-slate-300 rounded shadow-md mt-2 space-y-2`}
               >
-                <div className="p-4 flex flex-col ">
-                  <Link to="/profile">Profile</Link>
-                  <Link to="/dashboard">Dashboard</Link>
+                <div className="p-4 flex flex-col bg-pink-300 ">
+                  <Link to="/profile">
+                  <MdAccountCircle />
+
+                    Profile</Link>
+                    <hr class="h-px  bg-gray-200 border-0 dark:bg-gray-700" />
+
+                  {/* <Link to="/dashboard">Dashboard</Link> */}
                   <Link
                     name="logout"
                     variant="gradient"
@@ -160,8 +165,8 @@ export default function StickyNavbar() {
                       setUser({});
                     }}
                   >
-                    <IoLogOut />
-                    Logout
+                    <IoLogOut /> Logout
+                  
                   </Link>
                 </div>
               </div>
