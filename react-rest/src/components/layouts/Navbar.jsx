@@ -54,10 +54,10 @@ export default function StickyNavbar() {
                     <MdAccountCircle />
                     Profile
                   </Link>
-                  <hr class="h-px  bg-gray-200 border-0 dark:bg-gray-700" />
+                  <hr className="h-px  bg-gray-200 border-0 dark:bg-gray-700" />
 
                   {/* <Link to="/dashboard">Dashboard</Link> */}
-                  {/* <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"/> */}
+                  {/* <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"/> */}
 
                   <Link
                     name="logout"
@@ -152,7 +152,7 @@ export default function StickyNavbar() {
                   <MdAccountCircle />
 
                     Profile</Link>
-                    <hr class="h-px  bg-gray-200 border-0 dark:bg-gray-700" />
+                    <hr className="h-px  bg-gray-200 border-0 dark:bg-gray-700" />
 
                   {/* <Link to="/dashboard">Dashboard</Link> */}
                   <Link

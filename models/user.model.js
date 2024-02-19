@@ -7,6 +7,10 @@ const schema = new mongoose.Schema({
     required: true,
     default :"user"
   },
+  avatar :{
+    url :String,
+    public_id:String,
+  }
 });
 const User = mongoose.model("User", schema);
 

@@ -6,9 +6,8 @@ const cors = require("cors")
 const dotenv = require("dotenv");
 const routes = require("./routes/tank.route")
 const authRoutes = require("./routes/auth.route")
-const privateRoute = require("./routes/private.route")
+const userRoute = require("./routes/user.route")
 const adminRoute = require('./routes/admin.route')
-const uploadRoute = require("./routes/upload.route")
 
 dotenv.config();
 
@@ -39,9 +38,8 @@ mongoose
 
 app.use(routes);
 app.use(authRoutes);
-app.use(privateRoute)
+app.use("/user",userRoute)
 app.use(adminRoute);
-app.use(uploadRoute)
 
 
 

@@ -15,23 +15,32 @@ async function checkAdmin(req, res, next) {
     }
   } catch (error) {
     console.log(error, "here");
-    res.status(500).json({ error: error });
+    return res.status(500).json({ error: error });
   }
   next();
 }
 
 function checkAuth(req, res, next) {
   try {
+    if (!req.headers.cookie) {
+      return res.status(401).json({ message: "unauthorized access detected" });
+    }
     const token = req.headers.cookie.split("=")[1];
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     if (decoded && decoded.exp < Date.now()) {
+      console.log('here1')
       res.clearCookie("Authorization");
       return res.status(400).json({ isAuth: false });
     }
+    console.log('here2')
+
+    next();
   } catch (error) {
+    console.log(error)
+    console.log('here3')
+
     return res.status(500).json({ error: error });
   }
-  next();
 }
 
 module.exports = {
