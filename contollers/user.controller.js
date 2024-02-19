@@ -1,6 +1,20 @@
 const dotenv = require("dotenv");
 const User = require("../models/user.model");
 
+const check = async function (req, res) {
+  try {
+    const user = await User.findById(decoded.id);
+    res.status(200).json({
+      _id: user._id,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (error) {
+    res.clearCookie("Authorization")
+    res.status(500).json({ error: error });
+  }
+};
+
 dotenv.config();
 
 const cloudinary = require("cloudinary").v2;
@@ -40,6 +54,8 @@ const updateUser = async (req, res) => {
   }
 };
 
+
 module.exports = {
   updateUser,
+  check
 };

@@ -59,25 +59,10 @@ const login = async (req, res) => {
   }
 };
 
-const check = async function (req, res) {
-  try {
-    const token = req.headers.cookie.split("=")[1];
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    const user = await User.findById(decoded.id);
 
-    res.status(200).json({
-      _id: user._id,
-      email: user.email,
-      role: user.role,
-    });
-  } catch (error) {
-    res.clearCookie("Authorization")
-    res.status(500).json({ error: error });
-  }
-};
 
 const logout = async (req, res) => {
   res.clearCookie("Authorization");
   res.status(200).json({ message: "logged out" });
 };
-module.exports = { register, login, check, logout };
+module.exports = { register, login, logout };

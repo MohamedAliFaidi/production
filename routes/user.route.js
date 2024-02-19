@@ -4,11 +4,12 @@ const router = express.Router()
 
  
 
+router.get("/check" ,  require("../contollers/user.controller").check)
 
 
 
 
-router.post("/update/:id" , require("../middleware").checkAuth, require("../contollers/user.controller").updateUser)
+router.post("/update/:id" , require("../contollers/user.controller").updateUser)
 
 
 
