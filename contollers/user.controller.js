@@ -3,13 +3,12 @@ const User = require("../models/user.model");
 
 const check = async function (req, res) {
   try {
-    const user = await User.findById(decoded.id);
+  
     res.status(200).json({
-      _id: user._id,
-      email: user.email,
-      role: user.role,
+  message :"user role exist"
     });
   } catch (error) {
+    console.log(error)
     res.clearCookie("Authorization")
     res.status(500).json({ error: error });
   }
