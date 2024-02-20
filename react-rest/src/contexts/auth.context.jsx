@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           toast.success(`Welcome back ${res.data.user.email.split("@")[0]}`);
         }
       })
-      .catch((error) => toast.error(error.response.data.message));
+      .catch((error) => toast.error(error?.response?.data?.message));
   };
   const handleRegister = (email, password) => {
     register(email, password)
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
         toast.success(`Welcome${""}`);
       })
-      .catch((error) => toast.error(error.response.data.message));
+      .catch((error) => toast.error(error?.response?.data?.message));
   };
 
   const RegisterSchema = LoginSchema;

@@ -16,6 +16,7 @@ async function checkAuth(path) {
     );
     return true;
   } catch (error) {
+    console.log(error ,"here")
     return false;
   }
 }
@@ -26,7 +27,7 @@ export function AdminAuth({ children }) {
   const [setUser] = useUser((state) => [state.setUser]);
 
   useEffect(() => {
-    checkAuth("isadmin")
+    checkAuth("admin/isadmin")
       .then((res) => {
         if (res == true) setIsAdmin(true);
 
@@ -60,7 +61,7 @@ export function Auth({ children }) {
   const [setUser] = useUser((state) => [state.setUser]);
 
   useEffect(() => {
-    checkAuth("check")
+    checkAuth("user/check")
       .then((res) => {
         setIsAuth(res);
         if (res == false) setUser({});
