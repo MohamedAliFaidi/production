@@ -3,9 +3,7 @@ import "./App.css";
 import Navbar from "./components/layouts/Navbar";
 
 import Body from "./components/layouts/Body";
-import { useUser } from "./stores/userStore";
-import { getSession } from "./service/auth.service";
-import { useEffect } from "react";
+
 import "./App.css";
 import Footer from "./components/layouts/Footer";
 
