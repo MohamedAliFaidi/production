@@ -20,11 +20,11 @@ function Home() {
         </button>
       </div>
       {/* Hero image */}
-      <img
+      {/* <img
         className="hidden sm:inline-flex h-40 lg:h-80 xl:h-full"
         src="https://shubh73-medium.vercel.app/M.png"
         alt=""
-      />
+      /> */}
     </div>
   );
 }

@@ -16,7 +16,6 @@ async function checkAuth(path) {
     );
     return true;
   } catch (error) {
-    console.log(error ,"here")
     return false;
   }
 }
