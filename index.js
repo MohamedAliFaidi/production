@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser')
 const cors = require("cors")
 const dotenv = require("dotenv");
-const routes = require('./routes/routes')
+const routes = require('./API/routes/routes')
 const path = require('path');
 const helmet= require("helmet")
 app.use(helmet())
