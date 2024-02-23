@@ -57,9 +57,9 @@ app.use("/api",routes);
 
 
 
-app.use(express.static(path.join(__dirname, 'react-rest/dist')));
+app.use(express.static(path.join(__dirname, 'react/dist')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'react-rest/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'react/dist', 'index.html'));
 });
 
 app.listen(3000, () => {
