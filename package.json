@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd react &&  npm i &&  npm run build && cd .. && npm i",
-    "dev": "cd react &&  run build && cd .. && nodemon index.js",
-    "start":"node index.js"
+    "dev": "cd react &&  npm run build && cd .. && nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,6 @@
     "cloudinary": "^2.0.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "helmet": "^7.1.0",

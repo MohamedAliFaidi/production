@@ -2,7 +2,6 @@ import { useState, Suspense, useEffect } from "react";
 import { useUser } from "../../../stores/userStore";
 import { checkAuth } from "../../../services/auth.service";
 import { Navigate } from "react-router-dom";
-import LoadingFallback from "../Loading";
 
 export function Auth({ children }) {
   const [isAuth, setIsAuth] = useState(null);
@@ -24,11 +23,6 @@ export function Auth({ children }) {
   }, []);
 
   if (loading) {
-    return <LoadingFallback />;
-  } else
-    return (
-      <Suspense fallback={<LoadingFallback />}>
-        {isAuth ? children : <Navigate to="/login" />}
-      </Suspense>
-    );
+    return null
+  } else return <>{isAuth ? children : <Navigate to="/login" />}</>;
 }

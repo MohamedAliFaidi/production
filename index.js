@@ -5,7 +5,6 @@ const app = express();
 app.use(compression())
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser')
-const cors = require("cors")
 const dotenv = require("dotenv");
 const routes = require('./API/routes/routes')
 const path = require('path');
@@ -23,6 +22,8 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'"],
+      connectSrc: ["'self'", "https://mvc-b5ot.onrender.com"],
+
     },
   })
 );
@@ -30,18 +31,8 @@ app.use(
 dotenv.config();
 
 
-app.use(express.json({ limit: '35mb' }));
+app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser())
-app.use(express.urlencoded({
-  extended: true,
-  limit: '35mb',
-  parameterLimit: 50000,
-}),)
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
-
 
 
 mongoose

@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         if (res && res.data?.user) {
           setUser(res.data.user);
-          navigate("/")
+          navigate("/");
           toast.success(`Welcome back ${res.data.user.email.split("@")[0]}`);
         }
       })

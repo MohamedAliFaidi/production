@@ -1,7 +1,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { checkAuth } from "../../../services/auth.service";
 import { Navigate } from "react-router-dom";
-import LoadingFallback from "../Loading";
 export function AdminAuth({ children }) {
   const [isAdmin, setIsAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,16 +19,17 @@ export function AdminAuth({ children }) {
   }, []);
 
   if (loading) {
-    return <LoadingFallback />;
+    return null;
   } else {
     return (
-      <Suspense fallback={<LoadingFallback />}>
+      <>
+        {" "}
         {isAdmin == null || isAdmin == false ? (
           <Navigate to="/home" />
         ) : (
           children
         )}
-      </Suspense>
+      </>
     );
   }
 }

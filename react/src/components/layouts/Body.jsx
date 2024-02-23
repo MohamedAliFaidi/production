@@ -1,21 +1,16 @@
 import LoadingFallback from "./Loading";
-
 import { Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { AuthProvider } from "../../contexts/auth.context";
 import { AdminAuth } from "./routing/Admin";
 import { Auth } from "./routing/User";
 
-// Lazy load the Login component
 const Login = lazy(() => import("../auth/Login"));
 
-// Lazy load the Register component
 const Register = lazy(() => import("../auth/Register"));
 
-// Lazy load the Profile component
 const Profile = lazy(() => import("../user/Profile"));
 
-// Lazy load the Home component
 const Home = lazy(() => import("../home/Home"));
 
 const Admin = lazy(() => import("../admin/Admin"));
@@ -48,7 +43,9 @@ function Body() {
           path="/admin"
           element={
             <AdminAuth>
-              <Admin />
+              <Suspense fallback={<LoadingFallback />}>
+                <Admin />
+              </Suspense>
             </AdminAuth>
           }
         />
@@ -56,7 +53,9 @@ function Body() {
           path="/profile"
           element={
             <Auth>
-              <Profile />
+              <Suspense fallback={<LoadingFallback />}>
+                <Profile />
+              </Suspense>
             </Auth>
           }
         />
