@@ -1,4 +1,4 @@
-import { testAdminRoute } from "../../service/auth.service";
+import { testAdminRoute } from "../../services/auth.service";
 function Admin() {
 
   return (

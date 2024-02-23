@@ -1,11 +1,17 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useUser } from "../stores/userStore";
-import { login, register } from "../service/auth.service";
+import { login, register } from "../services/auth.service";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
+
 export const AuthProvider = ({ children }) => {
-  const [setUser] = useUser((state) => [state.setUser]);
+  const [user, setUser] = useUser((state) => [state.user, state.setUser]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    user.email && navigate("/");
+  }, [user]);
   const [constants] = useState({
     EMAIL_REGEX:
       /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -30,6 +36,7 @@ export const AuthProvider = ({ children }) => {
       .then((res) => {
         if (res && res.data?.user) {
           setUser(res.data.user);
+          navigate("/")
           toast.success(`Welcome back ${res.data.user.email.split("@")[0]}`);
         }
       })

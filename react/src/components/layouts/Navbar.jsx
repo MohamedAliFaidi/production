@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../stores/userStore";
-import { logout } from "../../service/auth.service";
+import { logout } from "../../services/auth.service";
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { IoLogIn, IoLogOut } from "react-icons/io5";

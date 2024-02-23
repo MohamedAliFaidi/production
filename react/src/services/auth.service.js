@@ -1,24 +1,21 @@
-import axios from "axios";
+import { axiosClient } from "../utils/axiosClient";
 
-export const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
-});
 
-export const logout = async () => {
-  return await axiosClient
-    .get(`/auth/logout`, {
-      withCredentials: true,
-    })
-    .then(() => {
-      window.location.pathname = "/";
-    });
-};
+export async function checkAuth(path) {
+  try {
+    await axiosClient.get(
+      "/" + path,
 
-export const getSession = async () => {
-  return await axiosClient.get("/user/check", {
-    withCredentials: true,
-  });
-};
+      {
+        withCredentials: true,
+      }
+    );
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 
 export const login = async (email, password) => {
   return await axiosClient.post(
@@ -35,6 +32,17 @@ export const register = async (email, password) => {
     email: email,
     password: password,
   });
+};
+
+
+export const logout = async () => {
+  return await axiosClient
+    .get(`/auth/logout`, {
+      withCredentials: true,
+    })
+    .then(() => {
+      window.location.pathname = "/";
+    });
 };
 
 export const testAdminRoute = async () => {

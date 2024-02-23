@@ -1,10 +1,10 @@
-import { Auth, AdminAuth, Public } from "../../service/Auth";
-import LoadingFallback from "./Loading"
-
+import LoadingFallback from "./Loading";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { AuthProvider } from "../../contexts/auth.context";
+import { AdminAuth } from "./routing/Admin";
+import { Auth } from "./routing/User";
 
 // Lazy load the Login component
 const Login = lazy(() => import("../auth/Login"));
@@ -20,8 +20,6 @@ const Home = lazy(() => import("../home/Home"));
 
 const Admin = lazy(() => import("../admin/Admin"));
 
-
-
 function Body() {
   return (
     <div>
@@ -29,21 +27,21 @@ function Body() {
         <Route
           path="/login"
           element={
-            <Public>
-              <AuthProvider>
+            <AuthProvider>
+              <Suspense fallback={<LoadingFallback />}>
                 <Login />{" "}
-              </AuthProvider>
-            </Public>
+              </Suspense>
+            </AuthProvider>
           }
         />
         <Route
           path="/register"
           element={
-            <Public>
-              <AuthProvider>
+            <AuthProvider>
+              <Suspense fallback={<LoadingFallback />}>
                 <Register />{" "}
-              </AuthProvider>
-            </Public>
+              </Suspense>
+            </AuthProvider>
           }
         />
         <Route
