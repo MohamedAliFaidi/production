@@ -58,7 +58,7 @@ class Server {
     // Static files
     this.app.use(express.static(path.join(__dirname, 'react/dist')));
     this.app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'react/dist', 'index.html'));
+      res.status(200).sendFile(path.join(__dirname, 'react/dist', 'index.html'));
     });
   }
 
