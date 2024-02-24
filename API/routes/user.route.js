@@ -1,22 +1,18 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const UserController = require("../controllers/user.controller");
 
+class UserRouter {
+  static #router = express.Router();
 
- 
+  static #initializeRoutes() {
+    this.#router.get("/check", UserController.check);
+    this.#router.post("/update/:id", UserController.updateUser);
+  }
 
-router.get("/check" ,  require("../contollers/user.controller").check)
+  static getRouter() {
+    this.#initializeRoutes();
+    return this.#router;
+  }
+}
 
-
-
-
-router.post("/update/:id" , require("../contollers/user.controller").updateUser)
-
-
-
-
-
-
-
-
-
-module.exports = router
+module.exports = UserRouter.getRouter();
