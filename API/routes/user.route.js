@@ -1,7 +1,18 @@
 const express = require("express");
-const router = express.Router();
+const UserController = require("../controllers/user.controller");
 
-router.get("/check", require("../contollers/user.controller").check);
-router.post("/update/:id", require("../contollers/user.controller").updateUser);
+class UserRouter {
+  static #router = express.Router();
 
-module.exports = router;
+  static #initializeRoutes() {
+    this.#router.get("/check", UserController.check);
+    this.#router.post("/update/:id", UserController.updateUser);
+  }
+
+  static getRouter() {
+    this.#initializeRoutes();
+    return this.#router;
+  }
+}
+
+module.exports = UserRouter.getRouter();

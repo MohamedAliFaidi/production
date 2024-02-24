@@ -1,53 +1,75 @@
 const express = require("express");
-const compression = require('compression')
-
-const app = express();
+const compression = require('compression');
 const mongoose = require("mongoose");
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const dotenv = require("dotenv");
-const routes = require('./API/routes/routes')
+const helmet = require("helmet");
+const routes = require('./API/routes/routes');
 const path = require('path');
-const helmet= require("helmet")
 
-app.use(helmet())
-app.use(helmet.hidePoweredBy())
-app.use(helmet.frameguard({action: 'deny'}))
-app.use(helmet.xssFilter())
-app.use(helmet.noSniff())
-app.use(helmet.ieNoOpen())
-app.use(helmet.hsts({maxAge:90*24*60*60 , force: true}))
-app.use(helmet.dnsPrefetchControl())
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
-      connectSrc: ["'self'", "https://mvc-b5ot.onrender.com","http://localhost:3000"],
-      
-    },
-  })
-  );
-  
-  dotenv.config();
-  
-  app.use(compression())
-  app.use(express.json({ limit: '10mb' }));
-  app.use(cookieParser())
-  
-  
-  mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("mongodb connected"))
-  .catch(() => console.log("error connection the database"));
+class Server {
+  constructor() {
+    this.app = express();
+    this.setup();
+    this.routes();
+    this.listen();
+  }
 
-app.use("/api",routes);
+  setup() {
+    dotenv.config();
 
+    // Helmet middleware for security
+    this.app.use(helmet());
+    this.app.use(helmet.hidePoweredBy());
+    this.app.use(helmet.frameguard({ action: 'deny' }));
+    this.app.use(helmet.xssFilter());
+    this.app.use(helmet.noSniff());
+    this.app.use(helmet.ieNoOpen());
+    this.app.use(helmet.hsts({ maxAge: 90 * 24 * 60 * 60, force: true }));
+    this.app.use(helmet.dnsPrefetchControl());
+    this.app.use(
+      helmet.contentSecurityPolicy({
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          connectSrc: ["'self'", "https://mvc-b5ot.onrender.com"],
+        },
+      })
+    );
 
-app.use(express.static(path.join(__dirname, 'react/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'react/dist', 'index.html'));
-});
+    // Compression middleware
+    this.app.use(compression());
 
-app.listen(3000, () => {
-  console.log("listening on port 3000")
-})
+    // Body parser middleware
+    this.app.use(express.json({ limit: '10mb' }));
+    this.app.use(cookieParser());
+
+    // Connect to MongoDB
+    mongoose
+      .connect(process.env.MONGODB_URI)
+      .then(() => console.log("mongodb connected"))
+      .catch(() => console.log("error connecting to the database"));
+  }
+
+  routes() {
+    // API routes
+    this.app.use("/api", routes);
+
+    // Static files
+    this.app.use(express.static(path.join(__dirname, 'react/dist')));
+    this.app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'react/dist', 'index.html'));
+    });
+  }
+
+  listen() {
+    // Start the server
+    const port = process.env.PORT || 3000;
+    this.app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  }
+}
+
+// Create an instance of the Server class
+new Server();

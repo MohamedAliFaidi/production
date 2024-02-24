@@ -1,11 +1,22 @@
-const authRoutes = require("./auth.route")
-const userRoute = require("./user.route")
-const adminRoute = require('./admin.route')
 const express = require('express');
-const router = express.Router();
+const authRoutes = require('./auth.route');
+const userRoute = require('./user.route');
+const adminRoute = require('./admin.route');
+const Middleware = require('../middleware');
 
-router.use("/auth",authRoutes)
-router.use("/user",require("../middleware").checkAuth,userRoute)
-router.use("/admin",require("../middleware").checkAuth,require("../middleware").checkAdmin,adminRoute)
+class Routes  {
+  static #router = express.Router();
 
-module.exports = router
+  static #setupRoutes() {
+    this.#router.use('/auth', authRoutes);
+    this.#router.use('/user', Middleware.checkAuth, userRoute);
+    this.#router.use('/admin', Middleware.checkAuth, Middleware.checkAdmin, adminRoute);
+  }
+
+  static getRouter() {
+    this.#setupRoutes();
+    return this.#router;
+  }
+}
+
+module.exports = Routes.getRouter();

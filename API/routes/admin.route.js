@@ -1,7 +1,18 @@
 const express = require("express");
-const router = express.Router();
+const AdminController = require("../controllers/admin.controller");
 
-router.get("/isadmin", require("../contollers/admin.controller").checkAdmin);
-router.get("/admintest", require("../contollers/admin.controller").testAdmin);
+class AdminRouter {
+  static #router = express.Router();
 
-module.exports = router;
+  static #initializeRoutes() {
+    this.#router.get("/isadmin", AdminController.checkAdmin);
+    this.#router.get("/admintest", AdminController.testAdmin);
+  }
+
+  static getRouter() {
+    this.#initializeRoutes();
+    return this.#router;
+  }
+}
+
+module.exports = AdminRouter.getRouter();
