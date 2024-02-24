@@ -1,19 +1,7 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
+router.get("/isadmin", require("../contollers/admin.controller").checkAdmin);
+router.get("/admintest", require("../contollers/admin.controller").testAdmin);
 
-
-
-
-router.get("/admintest" , require("../middleware").checkAdmin , require("../contollers/admin.controller").testAdmin )
-router.get("/isadmin" , require("../middleware").checkAdmin  ,require("../contollers/admin.controller").checkAdmin )
-
-
-
-
-
-
-
-
-
-module.exports = router
+module.exports = router;

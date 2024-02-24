@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 const register = async (req, res) => {
   try {
     const isUser = await User.findOne({ email: req.body.email });
-    console.log(isUser);
     if (isUser) {
       res.status(400).json({ message: "user already exist" });
     } else {
@@ -21,7 +20,6 @@ const register = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-
     res.status(500).json({ message: "error" });
   }
 };
@@ -55,11 +53,10 @@ const login = async (req, res) => {
       }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "error" });
   }
 };
-
-
 
 const logout = async (req, res) => {
   res.clearCookie("Authorization");

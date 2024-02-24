@@ -4,11 +4,8 @@ const adminRoute = require('./admin.route')
 const express = require('express');
 const router = express.Router();
 
-
 router.use("/auth",authRoutes)
 router.use("/user",require("../middleware").checkAuth,userRoute)
-router.use("/admin",require("../middleware").checkAdmin,adminRoute)
-
-
+router.use("/admin",require("../middleware").checkAuth,require("../middleware").checkAdmin,adminRoute)
 
 module.exports = router

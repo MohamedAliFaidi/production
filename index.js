@@ -2,13 +2,13 @@ const express = require("express");
 const compression = require('compression')
 
 const app = express();
-app.use(compression())
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser')
 const dotenv = require("dotenv");
 const routes = require('./API/routes/routes')
 const path = require('path');
 const helmet= require("helmet")
+
 app.use(helmet())
 app.use(helmet.hidePoweredBy())
 app.use(helmet.frameguard({action: 'deny'}))
@@ -22,30 +22,25 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'"],
-      connectSrc: ["'self'", "https://mvc-b5ot.onrender.com"],
-
+      connectSrc: ["'self'", "https://mvc-b5ot.onrender.com","http://localhost:3000"],
+      
     },
   })
-);
-
-dotenv.config();
-
-
-app.use(express.json({ limit: '10mb' }));
-app.use(cookieParser())
-
-
-mongoose
+  );
+  
+  dotenv.config();
+  
+  app.use(compression())
+  app.use(express.json({ limit: '10mb' }));
+  app.use(cookieParser())
+  
+  
+  mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("mongodb connected"))
   .catch(() => console.log("error connection the database"));
 
-
-
-
-
 app.use("/api",routes);
-
 
 
 app.use(express.static(path.join(__dirname, 'react/dist')));

@@ -3,13 +3,12 @@ const User = require("../models/user.model");
 
 const check = async function (req, res) {
   try {
-  
     res.status(200).json({
-  message :"user role exist"
+      message: "user role exist",
     });
   } catch (error) {
-    console.log(error)
-    res.clearCookie("Authorization")
+    console.log(error);
+    res.clearCookie("Authorization");
     res.status(500).json({ error: error });
   }
 };
@@ -53,8 +52,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-
 module.exports = {
   updateUser,
-  check
+  check,
 };
