@@ -1,6 +1,8 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const CompressionPlugin = require("compression-webpack-plugin");
+
+
 module.exports = {
   target: ['node'], // Specify the target environment (node.js)
   entry: './index.js', // Entry point for your server
@@ -12,4 +14,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [new CompressionPlugin()],
+  optimization: {
+    minimize: true,
+  },
 }
