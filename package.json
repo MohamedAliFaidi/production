@@ -6,11 +6,9 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "build": "cd react &&  npm i &&  npm run build && cd .. && webpack",
+    "build": "cd react &&  npm i &&  npm run build && cd .. && npm i && webpack",
     "dev": "cd react &&  npm run build && cd .. && nodemon index.js",
-    "start": "node dist/backend.js",
-    "eslint": "eslint ./",
-    "eslint-fix": "eslint ./ --fix"
+    "start": "node dist/backend.js"
   },
   "keywords": [],
   "author": "",
