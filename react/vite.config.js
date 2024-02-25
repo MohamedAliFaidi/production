@@ -7,7 +7,9 @@ import { splitVendorChunkPlugin } from "vite";
 export default defineConfig({
   plugins: [react(), viteCompression(), splitVendorChunkPlugin()],
   build: {
-    chunkSizeWarningLimit: 1000,
+    outDir:"../dist",
+    manifest:true,
+    sourcemap:true,
     rollupOptions: {
       output: {
         manualChunks(id) {

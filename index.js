@@ -1,11 +1,11 @@
 const express = require("express");
-const compression = require('compression');
+const compression = require("compression");
 const mongoose = require("mongoose");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
-const routes = require('./API/routes/routes');
-const path = require('path');
+const routes = require("./API/routes/routes");
+const path = require("path");
 
 class Server {
   constructor() {
@@ -21,7 +21,7 @@ class Server {
     // Helmet middleware for security
     this.app.use(helmet());
     this.app.use(helmet.hidePoweredBy());
-    this.app.use(helmet.frameguard({ action: 'deny' }));
+    this.app.use(helmet.frameguard({ action: "deny" }));
     this.app.use(helmet.xssFilter());
     this.app.use(helmet.noSniff());
     this.app.use(helmet.ieNoOpen());
@@ -32,7 +32,7 @@ class Server {
         directives: {
           defaultSrc: ["'self'"],
           scriptSrc: ["'self'"],
-          connectSrc: ["'self'", "https://mvc-b5ot.onrender.com"],
+          connectSrc: ["'self'", "https://mvc-b5ot.onrender.com",process.env.PROD],
         },
       })
     );
@@ -41,7 +41,7 @@ class Server {
     this.app.use(compression());
 
     // Body parser middleware
-    this.app.use(express.json({ limit: '10mb' }));
+    this.app.use(express.json({ limit: "10mb" }));
     this.app.use(cookieParser());
 
     // Connect to MongoDB
@@ -56,10 +56,18 @@ class Server {
     this.app.use("/api", routes);
 
     // Static files
-    this.app.use(express.static(path.join(__dirname, 'react/dist')));
-    this.app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'react/dist', 'index.html'));
-    });
+
+    if (process.env.NODE_ENV == "production") {
+      this.app.use(express.static(path.join(__dirname, "./")));
+      this.app.get("*", (req, res) => {
+        res.status(200).sendFile(path.join(__dirname, "./", "index.html"));
+      });
+    } else {
+      this.app.use(express.static(path.join(__dirname, "dist")));
+      this.app.get("*", (req, res) => {
+        res.status(200).sendFile(path.join(__dirname, "dist", "index.html"));
+      });
+    }
   }
 
   listen() {
