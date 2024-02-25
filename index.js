@@ -32,7 +32,7 @@ class Server {
         directives: {
           defaultSrc: ["'self'"],
           scriptSrc: ["'self'"],
-          connectSrc: ["'self'", "https://mvc-b5ot.onrender.com"],
+          connectSrc: ["'self'", "https://mvc-b5ot.onrender.com",process.env.PROD],
         },
       })
     );
